@@ -13,7 +13,8 @@ def chng_xls(xl_name)
   xl = (PATH + xl_name) # ss full name
   puts xl_name # file being updated currently
   ss = WIN32OLE::new('excel.Application')
-  ss.visible = true
+  ss.visible = false
+  ss.DisplayAlerts = false
   wb = ss.Workbooks.Open(xl)
   ws = wb.Worksheets(1)
 
@@ -21,11 +22,13 @@ def chng_xls(xl_name)
   ws.Range("b3").value = IP
   wb.save
   ss.quit
+  ss.visible = true
+  ss.DisplayAlerts = true
 end
 
 # - change directory to "..\driver\"
 # - backslashes are needed in path to open excel file
-Dir.chdir("./driver")
+Dir.chdir("../driver")
 PATH = ((Dir.getwd) + '/').gsub('/','\\')
 puts " Driver folder being updated is - #{PATH}"
 

@@ -35,17 +35,17 @@ require 'watir/ie'
 require 'watir\contrib\enabled_popup' #This is called by jsClick
 require 'time'
 require 'win32ole'
-require 'navigate12'
-require 'xls4'
-require 'setup29'
-require 'teardown14'
-require 'snmp1'
-require 'telnet16'
-require 'rpc-monitor-nav'
-require 'rpc-control-nav'
-require 'rpc-dev-explorer-nav'
-require 'rpc-devexprcpseq-nav'
-require 'rpc-sensors.rb'
+require 'navigate'
+require 'xls'
+require 'setup'
+require 'teardown'
+require 'snmp'
+require 'telnet'
+#require 'rpc-monitor-nav'
+#require 'rpc-control-nav'
+#require 'rpc-dev-explorer-nav'
+#require 'rpc-devexprcpseq-nav'
+#require 'rpc-sensors.rb'
 
 class Generic_parent
   include Nav
@@ -54,10 +54,10 @@ class Generic_parent
   include Setup
   include Snmp
   include Telnet_cstm
-  include Monitornav
-  include Controlnav
-  inlucde DevExpRcpSeq
-  include Sensors
+#  include Monitornav
+#  include Controlnav
+#  include DevExpRcpSeq
+#  include Sensors
 
 
  

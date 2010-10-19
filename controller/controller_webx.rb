@@ -44,6 +44,7 @@ TODO move the method info to the appropriate lib files
 =end
 
 $:.unshift File.dirname(__FILE__).sub('controller','lib') #add lib to load path
+
 require 'generic'
 s = Time.now
 
@@ -59,14 +60,12 @@ begin
   g.login(site,name,pswd)
   g.equipinfo.click
  
-  row = 1 
+  row = 2
   while (row <= rows)
-    r_ow = row 
-    row += 1 
     run_flag = ws.Range("e#{row}")['Value']
     puts "run_flag = #{run_flag}"
     if run_flag == true
-      print" Executing Driver script #{r_ow} -- "
+      print" Executing Driver script #{row} -- "
       path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
       drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver 
       t = Time.now.to_a.reverse[5..9].to_s
@@ -75,6 +74,7 @@ begin
       puts "Drvr Status = #{run_drvr}"
       #g.conn_act_xls # connect to controller spreadsheet
     end
+    row += 1
   end
   f = Time.now  
   g.tear_down_c(excel[0],s,f)
@@ -82,7 +82,5 @@ begin
 rescue Exception => e
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
 ensure 
-  #wb.Save
-  #ss.Quit
 end
 
