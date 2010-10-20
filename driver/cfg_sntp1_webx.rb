@@ -61,7 +61,9 @@ begin
   while(row <= rows)
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
-    sleep 5
+
+    # Verify that SNTP is enabled
+    puts "Checkbox value is #{g.time_enable.value}"
     Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
 

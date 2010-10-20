@@ -55,7 +55,7 @@ module Nav
 
   # - Equipment / Agent Information navigation link.
   def equipinfo
-    if (nav.link(:text, 'Equipment Information')).exists?
+    if nav.link(:text, 'Equipment Information').exists?
       nav.link(:text, 'Equipment Information')
     else
       nav.link(:text, 'Agent Information')
@@ -218,6 +218,8 @@ module Nav
   def timesync(rate); det.radio(:name, 'timeSyncGroup',"#{rate}"); end
   # - Time(SNTP) timezone select list
   def timezone; det.select_list(:id, 'timezone'); end
+  # - Time(SNTP) enable checkbox
+  def time_enable; det.checkbox(:id, 'enableSntp'); end;
   
 
   # - Management protocol snmp agent checkbox

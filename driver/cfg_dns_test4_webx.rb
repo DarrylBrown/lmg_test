@@ -3,7 +3,7 @@
   | Change                                               | Name        | Date  |
 
 *Test_Script_Name*
-  cfg_dns_test3.rb
+  cfg_dns_test4.rb
 
 *Test_Case_Number*
   700.070.20.110

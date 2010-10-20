@@ -6,10 +6,10 @@
   cfg_telnet_info3.rb
 
 *Test_Case_Number*
-  700.010.20.110
+  700.180.20.110
 
 *Description*
-  Validate the Messaging Information configuration
+  Validate the Telnet Information configuration
      Select
      - Deselect
      - Reset Ok and Reset Cancel
