@@ -65,7 +65,8 @@ begin
     if run_flag == true
       print" Executing Driver script #{row-1} -- "
       path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
-      drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver 
+      drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver
+      drvr << '.rb' if !(drvr =~ /\.rb$/) #Add .rb to script name if necessary.
       t = Time.now.to_a.reverse[5..9].to_s
       log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
       run_drvr = system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver 

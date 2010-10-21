@@ -170,6 +170,8 @@ class Generic_parent
   
   #  
   #  - reset Cancel or reset OK, implicitly return text in popup
+  #  - res = Reset
+  #  - can = Cancel
   def res_can(pop_exp)
     if (pop_exp == "res")
       reset.click_no_wait

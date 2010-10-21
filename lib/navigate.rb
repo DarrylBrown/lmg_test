@@ -144,8 +144,9 @@ module Nav
   def web_updt; save; end 
   # - Restart button
   def restart1; save ; end
+  # - Reset to Factory Defaults Button
+  def reset_to_factory_defaults; det.button(:value, 'Reset To Factory Defaults'); end;
 
-  
   # - Equipment Name text field
   def name; det.form(:name, 'configDevice').text_field(:id, 'deviceName'); end
   # - Equipment Contact text field

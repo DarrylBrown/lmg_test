@@ -21,6 +21,7 @@ def chng_xls(xl_name)
   # - write new IP to spreadsheet
   ws.Range("b3").value = IP
   wb.save
+  wb.close
   ss.quit
   ss.visible = true
   ss.DisplayAlerts = true
@@ -38,6 +39,6 @@ IP = gets.chomp!
 IP = '126.4.202.212' if IP.empty? # change the default as needed
 
 # - change ip in each file in the array
-Dir.glob('*xls').each{|x| chng_xls(x)}
+Dir.glob('def_wrt*xls').each{|x| chng_xls(x)}
   
 puts " \n   Updates Complete"
