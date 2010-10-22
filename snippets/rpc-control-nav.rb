@@ -70,15 +70,39 @@ def catdet; $ie.frame(:name, 'infoArea').frame(:name, 'detailArea').frame(:name,
 
 #PDU User Assigned Label
 #$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'label').set('MPH Rack PDU1')
-def usr_lbl; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'label'); end
+def pusr_lbl; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'label'); end
 
 #PDU Asset Tag01
 #$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag1').set('')
-def tag1; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag1'); end
+def ptag1; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag1'); end
 
 #PDU Asset Tag02
 #$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag2').set('')
-def tag2; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag2'); end
+def ptag2; catdet.form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag2'); end
+
+#Branch User Assigned Label
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'label').set('MPH Rack PDU1')
+def busr_lbl; catdet.form(:name, 'rpcControlRemSettingForm').text_field(:name, 'label'); end
+
+#Branch Asset Tag01
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag1').set('')
+def btag1; catdet.form(:name, 'rpcControlRemSettingForm').text_field(:name, 'assetTag1'); end
+
+#Branch Asset Tag02
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag2').set('')
+def btag2; catdet.form(:name, 'rpcControlRemSettingForm').text_field(:name, 'assetTag2'); end
+
+#Receptacle User Assigned Label
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'label').set('MPH Rack PDU1')
+def rusr_lbl; catdet.form(:name, 'rpcControlReceptacleSettingForm').text_field(:name, 'label'); end
+
+#Receptacle Asset Tag01
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag1').set('')
+def rtag1; catdet.form(:name, 'rpcControlReceptacleSettingForm').text_field(:name, 'assetTag1'); end
+
+#Receptacle Asset Tag02
+#$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'assetTag2').set('')
+def rtag2; catdet.form(:name, 'rpcControlReceptacleSettingForm').text_field(:name, 'assetTag2'); end
 
 #Neutral Over Current Alarm Threshold
 #$ie.frame(:index, 3).frame(:index, 3).frame(:index, 1).form(:name, 'rpcControlApsSettingForm').text_field(:name, 'ecNeutralThrshldOverAlarm').set('80')
@@ -125,5 +149,12 @@ def rcp_powerstate;radio(:name, 'receptacleStateGroup', "#{mode}");end
 
 #Receptacle LED
 def rcp_led; catdet.button(:name, 'rcpIdentControl'); end
+
+#Control Edit,Save,Reset
+def p_edit; catdet.button(:name, 'Edit'); end
+def b_edit; catdet.button(:id, 'editButton'); end
+def r_edit; catdet.button(:id, 'edit').click; end
+def c_save; catdet.button(:name, 'Submit'); end
+def c_reset; catdet.button(:value, 'Reset'); end
 
 end

@@ -37,6 +37,7 @@ module Monitornav
   #$ie.frame(:index, 3).frame(:index, 2).link(:text, 'PDU Explorer').click
   def pdu_exp; nav.link(:text, 'PDU Explorer'); end
 
+<<<<<<< HEAD
   #Status
   #$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgStatus').click
   def mstatus; det.image(:id, 'imgStatus'); end
@@ -52,6 +53,23 @@ module Monitornav
   #Ratings
   #$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgInfo').click
   def mratings; det.image(:id, 'imgInfo'); end
+=======
+#Status
+#$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgStatus').click
+def m_status; det.image(:id, 'imgStatus'); end
+
+#Events
+#$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgEvents').click
+def m_events; det.image(:id, 'imgEvents'); end
+
+#Settings
+#$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgSettings').click
+def m_settings; det.image(:id, 'imgSettings'); end
+
+#Ratings
+#$ie.frame(:index, 3).frame(:index, 3).image(:id, 'imgInfo').click
+def m_ratings; det.image(:id, 'imgInfo'); end
+>>>>>>> b78f1193fc956241a0be16a65fd333242d931d03
 
   #PDU-Status---->Parameters
 =begin
@@ -97,7 +115,11 @@ $ie.frame(:index, 3).frame(:index, 3).table(:index, 12)[2][2].click
 #Units
 $ie.frame(:index, 3).frame(:index, 3).table(:index, 12)[2][3].click
 =end
+<<<<<<< HEAD
   def ratings(row,column); monit_det.table(:index, 12)[row][column]; end
+=======
+def ratings(row,column); det.table(:index, 12)[row][column]; end
+>>>>>>> b78f1193fc956241a0be16a65fd333242d931d03
 
   #Receptacle-Settings---->Parameters
 =begin
@@ -186,6 +208,12 @@ $ie.frame(:index, 3).frame(:index, 3).image(:index, 3).click
 $ie.frame(:index, 3).frame(:index, 3).image(:index, 6).click
 #PDU4-Branch1-Receptacle Level
 $ie.frame(:index, 3).frame(:index, 3).image(:index, 9).click
+
+#Scroll back from Receptacle to Branch level
+$ie.frame(:index, 3).frame(:index, 3).image(:index, 29).click
+#Scroll back from Branch to PDU level
+$ie.frame(:index, 3).frame(:index, 3).image(:index, 5).click
 =end
+
 
 end

@@ -29,7 +29,7 @@ def nav
     end
   end
   
-def catdet; $ie.frame(:name, 'infoArea').frame(:name, 'detailArea').frame(:name, 'categDetailArea'); end
+def catdet; $ie.frame(:name, 'infoArea').frame(:name, 'detailArea').frame(:name, 'categDetail'); end
   
 # - monitor tab link
 def monitor; tab.image(:name, 'imgMonitor'); end
@@ -42,72 +42,77 @@ def control; tab.image(:name, 'imgControl'); end
 def sensr; nav.link(:text, 'Sensors'); end
 
 #Click on Status tab
-def sstatus; det.image(:id, 'imgStatus'); end
+def s_status; det.image(:id, 'imgStatus'); end
 
 #Click on events tab
-def sevents; det.image(:id, 'imgEvents'); end
+def s_events; det.image(:id, 'imgEvents'); end
 
 #Click on Setting tab
-def ssettgs; det.image(:id, 'imgSettings'); end
+def s_settgs; det.image(:id, 'imgSettings'); end
 
 #Click on Ratings tab
-def sratings; det.image(:id, 'imgInfo'); end
+def s_ratings; det.image(:id, 'imgInfo'); end
 
 #click on Sensors ID Sort
-def sidsort; det.link(:text, 'ID'); end
+def s_idsort; det.link(:text, 'ID'); end
 
 #click on Sensors Type Sort
-def stypesort; det.link(:text, 'Type'); end
+def s_typesort; det.link(:text, 'Type'); end
 
 #click on Sensors Label Sort
-def slabel; det.link(:text, 'Label'); end
+def s_label; det.link(:text, 'Label'); end
 
 #Sensor status
-def senstatus(row,column); det.table(:index, 10)[row][column]; end
+def sen_status(row,column); det.table(:index, 10)[row][column]; end
 
 #Sensor events
-def senevents(row,column); det.table(:index, 11)[row][column]; end
+def sen_events(row,column); det.table(:index, 11)[row][column]; end
 
 #Sensor settings
-def sensettg(row,column); det.table(:index, 12)[row][column]; end
+def sen_settg(row,column); det.table(:index, 12)[row][column]; end
 
 #Sensor ratings
-def senratg(row,column); det.table(:index, 13)[row][column]; end
+def sen_ratg(row,column); det.table(:index, 13)[row][column]; end
 
 #Humidity labels,asset tags,thresholds
-def husrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdLabel'); end
-def hasstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdAssetTag1'); end
-def hasstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdAssetTag2'); end
-def hovralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'humThresholdHiAlm'); end
-def hovrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'humThresholdHiWrn'); end
-def hundralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'humThresholdLoAlm'); end
-def hundrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'humThresholdLoWrn'); end
+def h_usrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdLabel'); end
+def h_asstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdAssetTag1'); end
+def h_asstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'hmdAssetTag2'); end
+def h_ovralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'humThresholdHiAlm'); end
+def h_ovrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'humThresholdHiWrn'); end
+def h_undralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'humThresholdLoAlm'); end
+def h_undrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'humThresholdLoWrn'); end
 
 
 #Temperature labels,asset tags,thresholds
-def tusrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpLabel'); end
-def tasstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpAssetTag1'); end
-def tasstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpAssetTag1'); end
-def tovralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tempThresholdHiAlm'); end
-def tovrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tempThresholdHiWrn'); end
-def tundralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'tempThresholdLoAlm'); end
-def tundrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'tempThresholdLoWrn'); end
+def t_usrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpLabel'); end
+def t_asstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpAssetTag1'); end
+def t_asstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpAssetTag2'); end
+def t_ovralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tempThresholdHiAlm'); end
+def t_ovrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tempThresholdHiWrn'); end
+def t_undralrm; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'tempThresholdLoAlm'); end
+def t_undrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'tempThresholdLoWrn'); end
 
 
 #Door Closure labels,asset tags,state alarm config
-def dusrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'drLabel'); end
-def dasstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,  'drAssetTag1'); end
-def dasstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'drAssetTag2'); end
-def dalrmcnfg(state); catdet.radio(:name, 'drStateAlrmCfg',"#{state}"); end
+def d_usrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'drLabel'); end
+def d_asstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,  'drAssetTag1'); end
+def d_asstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'drAssetTag2'); end
+def d_alrmcnfg(state); catdet.radio(:name, 'drStateAlrmCfg',"#{state}"); end
 
 #Contact Closure labels,asset tags,state alarm config
-def cusrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'cntctLabel'); end
-def casstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,  'cntctAssetTag1'); end
-def casstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'cntctAssetTag2'); end
-def calrmcnfg(state); catdet.radio(:name, 'cntctStateAlrmCfg',"#{state}"); end
+def c_usrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'cntctLabel'); end
+def c_asstag1; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,  'cntctAssetTag1'); end
+def c_asstag2; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'cntctAssetTag2'); end
+def c_alrmcnfg(state); catdet.radio(:name, 'cntctStateAlrmCfg',"#{state}"); end
 
 
 #click on Sensor ID link for ex :-4 -1-1
-def snsrid(id); det.link(:text, "#{id}"); end
+#def sensrid(id); det.link(:text, "#{id}"); end
+def sensrid(id); $ie.frame(:index, 3).frame(:index, 3).link(:text, "#{id}"); end
+
+#Sensors Edit button
+def s_edit; catdet.button(:id, 'editButton'); end
+
 
 end
