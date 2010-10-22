@@ -1,3 +1,12 @@
+22.10.2010
+Added below files
+monitor-devrcpseq-prac.rb
+monitor-rcpseq-prac.rb
+monitor-sensor-prac.rb
+
+------------------------------
+
+
 21.10.2010
 --Modified monit-prac.rb to monit-pracB.rb
 --Modified control-prac.rb to control-pracA.rb
