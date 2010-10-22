@@ -59,7 +59,7 @@ def dev_label; det.form(:id, 'rpcControlReceptacleListForm').text_field(:id, 'se
 
 #Receptacle Name
 #$ie.frame(:index, 3).frame(:index, 3).link(:text, 'Receptacle 1').click
-def rcpname(id); det.link(:id, "#{id}"); end
+def rcpname(id); det.link(:text, "#{id}"); end
 
 #Receptacle Id
 #$ie.frame(:index, 3).frame(:index, 3).link(:text, '1-1-1').click
