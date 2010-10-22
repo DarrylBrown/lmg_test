@@ -227,6 +227,8 @@ module Nav
   def snmp_en; det.checkbox(:id, 'enableSNMP'); end
   # - Management protocol Velocity v.4 Server checkbox
   def v4_en; det.checkbox(:id, 'enableVelocity'); end
+  # - Management protocol snmp agent checkbox on webx card
+  def snmp_enable; det.checkbox(:name, 'enableSNMP'); end;
 
   # - Management protocol snmp agent checkbox
   def snmp_agent; det.checkbox(:id, 'enableSnmpAgent'); end
