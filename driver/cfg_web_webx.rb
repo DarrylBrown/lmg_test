@@ -67,7 +67,7 @@ begin
     # Write Configure Web fields
     web_server = ((ws.Range("k#{row}")['Value']).to_i).to_s
     puts "#{web_server}"
-    g.websrvr.select_value(web_server)
+    g.web_server.select_value('00000001')
     
     if web_server == "2"
       g.httpport.set((ws.Range("l#{row}")['Value']).to_s)
@@ -112,7 +112,7 @@ begin
     Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
     
-    web_mode = g.websrvr.value
+    web_mode = g.web_server.value
     puts "Web Server = #{web_mode}"
     ws.Range("bc#{row}")['Value'] = web_mode
     if web_mode == "2"

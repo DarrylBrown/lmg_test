@@ -426,6 +426,8 @@ module Nav
 
   # - Web server mode delect list
   def websrvr; det.form(:name, 'configWeb').select_list(:id, 'webMode'); end
+  # - Web server mode on webx card
+  def web_server; det.form(:name, 'configWeb').select_list(:name, 'webMode'); end
   # - Web server http port text field
   def httpport; det.form(:name, 'configWeb').text_field(:id, 'webPort'); end
   # - Web server https port text field

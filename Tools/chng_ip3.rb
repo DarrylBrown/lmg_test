@@ -39,6 +39,6 @@ IP = gets.chomp!
 IP = '126.4.202.212' if IP.empty? # change the default as needed
 
 # - change ip in each file in the array
-Dir.glob('def_wrt*xls').each{|x| chng_xls(x)}
+Dir.glob('*rpc.xls').each{|x| chng_xls(x)}
   
 puts " \n   Updates Complete"
