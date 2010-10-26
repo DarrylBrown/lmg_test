@@ -38,6 +38,9 @@ s = Time.now
 require 'generic'
 require 'watir/process' 
 
+ACTUAL_POPUP_1 = 'bk'
+ACTUAL_POPUP_2 = 'bl'
+
 begin 
   puts" \n Executing: #{(__FILE__)}\n\n" # print current filename
   g = Generic.new
@@ -95,22 +98,22 @@ begin
     #sleep 1
 
     #If popup, handle with reset OK or reset Cancel to continue
-    if (pop == "res")
-      popup_txt  = g.invChar($ie,pop,nil)
-      puts "Pop-Up text is #{popup_txt}"
-      ws.Range("bk#{row}")['Value'] = popup_txt
-    end
- 
-    if (pop == "can")
-      ws.Range("bk#{row}")['Value'] = g.res_can(pop)
-    end
-
-    #If reset Cancel, do not save
-    if (pop == "no")
+    case pop
+    when /ok/i then
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
+    when /cancel/i then
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
+      g.cancel.click
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("ok")
+    when /override/i then
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("ok")
+    when /no/i then
       g.save.click_no_wait
       g.jsClick('Windows Internet Explorer', 'OK')
+    else raise "Invalid popup encountered!"
     end
- 
+
     #read SNTP Configuration  field values
     sleep 1
     Watir::Waiter.wait_until(5) { g.edit.exists?}

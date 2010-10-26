@@ -262,7 +262,22 @@ class Generic_parent
       end
     end
     return nil
-  end 
+  end
+
+  # - returns popup text
+  def popup_handler(button_to_push)
+    wait = 70
+    window_handle = $ie.enabled_popup(wait) # wait up to 70 seconds for a popup to appear
+    if (window_handle)
+      w = WinClicker.new
+      popup_text = w.getStaticText_hWnd(window_handle).to_s.delete "\n"
+      sleep (0.1)
+      w.clickWindowsButton_hwnd(window_handle, "#{button_to_push}")
+      w = nil
+    end
+    puts "pop-up text = #{popup_text}"
+    return popup_text
+  end
 end
 
 class Array
@@ -302,6 +317,8 @@ end
     return false
   end
 
+  # - Returns an array of process ids (pids) for a given image name using the
+  # - windows tasklist command
   def get_process_pids(image_name)
     pid_array = Array.new
     command = 'tasklist /FI "IMAGENAME eq ' + "#{image_name}"""
@@ -314,6 +331,8 @@ end
     return pid_array
   end
 
+  # - Kills processes matched in the supplied array of pids using the windows
+  # - taskkill command
   def kill_processes(pid_array)
     command = 'taskkill '
     pid_array.each do |pid|
