@@ -55,7 +55,7 @@ begin
   $ie.speed = :zippy
   #Navigate to the 'Configure' tab
   g.config.click
-  $ie.maximize  
+
   #Click the Configure SNTP link on the left side of window
   #Login if not called from controller
   g.logn_chk(g.time,excel[1])
@@ -96,20 +96,19 @@ begin
     pop = ws.Range("af#{row}")['Value'].to_s 
     puts "  pop_up value = #{pop}" unless pop == 'no'
     #sleep 1
-
+    g.save.click_no_wait
     #If popup, handle with reset OK or reset Cancel to continue
     case pop
     when /ok/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
     when /cancel/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
-      g.cancel.click
-      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("ok")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
+      g.reset.click_no_wait
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("OK")
     when /override/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("ok")
-      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("ok")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("OK")
     when /no/i then
-      g.save.click_no_wait
       g.jsClick('Windows Internet Explorer', 'OK')
     else raise "Invalid popup encountered!"
     end
@@ -139,8 +138,6 @@ begin
     puts "Time zone is #{t_zone}"
     ws.Range("be#{row}")['Value'] = t_zone
     
-    g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
     wb.Save
   end
 
