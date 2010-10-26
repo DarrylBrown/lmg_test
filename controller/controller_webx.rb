@@ -44,7 +44,7 @@ TODO move the method info to the appropriate lib files
 =end
 
 $:.unshift File.expand_path(File.dirname(__FILE__)).sub('controller','lib') #add lib to load path
-
+$:.unshift .
 require 'generic'
 s = Time.now
 
