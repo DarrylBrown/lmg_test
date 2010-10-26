@@ -48,7 +48,15 @@ $:.unshift File.expand_path(File.dirname(__FILE__)).sub('controller','lib') #add
 require 'generic'
 s = Time.now
 
+RUN_COLUMN = 'E'
+SCRIPT_COLUMN = 'J'
+
 begin
+  #Check for existing instances of IE and kill them if present
+  if is_process_running?('iexplore.exe')
+    kill_processes(get_process_pids('iexplore.exe'))
+    puts "Found and terminated existing instances of IE"
+  end
   puts" \n Executing: #{(__FILE__)}\n\n" #current file
   g = Generic.new
   
@@ -61,11 +69,11 @@ begin
  
   row = 2
   while (row <= rows)
-    run_flag = ws.Range("e#{row}")['Value']
+    run_flag = ws.Range("#{RUN_COLUMN}#{row}")['Value']
     if run_flag == true
       print" Executing Driver script #{row-1} -- "
       path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
-      drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver
+      drvr = path << (ws.Range("#{SCRIPT_COLUMN}#{row}")['Value'].to_s) #concat path and driver
       drvr << '.rb' if !(drvr =~ /\.rb$/) #Add .rb to script name if necessary.
       t = Time.now.to_a.reverse[5..9].to_s
       log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')

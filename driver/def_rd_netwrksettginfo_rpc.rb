@@ -37,7 +37,7 @@ s = Time.now
 require 'generic'
 require 'watir/process' 
 
-begin 
+begin
   puts" \n Executing: #{(__FILE__)}\n\n" # print current filename
   g = Generic.new
   roe = ARGV[1].to_i

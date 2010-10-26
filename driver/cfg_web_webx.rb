@@ -67,7 +67,7 @@ begin
     # Write Configure Web fields
     web_server = ((ws.Range("k#{row}")['Value']).to_i).to_s
     puts "#{web_server}"
-    g.web_server.select_value('00000001')
+    g.web_server.select_value(web_server)
     
     if web_server == "2"
       g.httpport.set((ws.Range("l#{row}")['Value']).to_s)
