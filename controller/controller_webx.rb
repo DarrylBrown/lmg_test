@@ -58,12 +58,10 @@ begin
     kill_processes(get_process_pids('iexplore.exe'))
     puts "Found and terminated existing instances of IE"
   end
-
-  file = File.expand_path(File.dirname(__FILE__))
-  puts" \n Executing: #{(file)}\n\n" #current file
+  puts" \n Executing: #{(__FILE__)}\n\n" #current file
   g = Generic.new
   
-  excel = g.setup(file)
+  excel = g.setup(__FILE__)
   ws = excel[0][2]
   ctrl_ss,rows,site,name,pswd = excel[1]
 
@@ -75,7 +73,7 @@ begin
     run_flag = ws.Range("#{RUN_COLUMN}#{row}")['Value']
     if run_flag == true
       print" Executing Driver script #{row-1} -- "
-      path = File.dirname(file).sub('controller','driver/') # driver path
+      path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
       drvr = path << (ws.Range("#{SCRIPT_COLUMN}#{row}")['Value'].to_s) #concat path and driver
       drvr << '.rb' if !(drvr =~ /\.rb$/) #Add .rb to script name if necessary.
       t = Time.now.to_a.reverse[5..9].to_s
