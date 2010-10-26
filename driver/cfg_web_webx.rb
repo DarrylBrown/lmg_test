@@ -65,19 +65,19 @@ begin
     g.edit.click
 
     # Write Configure Web fields
-    web_server = ((ws.Range("k#{row}")['Value']).to_i).to_s
+    web_server = ws.Range("k#{row}")['Value']
     puts "#{web_server}"
-    g.web_server.select_value(web_server)
+    g.websrvr.select_value(web_server)
     
-    if web_server == "2"
+    if web_server == Nav::HTTP
       g.httpport.set((ws.Range("l#{row}")['Value']).to_s)
-    elsif web_server == "3"
+    elsif web_server == Nav::HTTPS
       g.httpsport.set((ws.Range("m#{row}")['Value']).to_s)
     else
       puts "The port is disabled"
     end
     
-    unless web_server == "1"
+    unless web_server == Nav::DISABLED
       if ws.Range("n#{row}")['Value'] == 'set' then g.pswdprtct.set else g.pswdprtct.clear end
       if ws.Range("o#{row}")['Value'] == 'set' then g.cfgctrl.set else g.cfgctrl.clear end
       g.refresh.set((ws.Range("p#{row}")['Value']).to_s)
@@ -112,18 +112,18 @@ begin
     Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
     
-    web_mode = g.web_server.value
+    web_mode = g.websrvr.value
     puts "Web Server = #{web_mode}"
     ws.Range("bc#{row}")['Value'] = web_mode
-    if web_mode == "2"
+    if web_mode == Nav::HTTP
       ws.Range("bd#{row}")['Value'] = g.httpport.value
-    elsif web_mode == "3"
+    elsif web_mode == Nav::HTTPS
       ws.Range("be#{row}")['Value'] = g.httpsport.value
     else
       puts"Web server is Disabled"
     end
     
-    unless web_mode == "1"
+    unless web_mode == Nav::DISABLED
       ws.Range("bf#{row}")['Value'] = g.checkbox(g.pswdprtct)
       ws.Range("bg#{row}")['Value'] = g.checkbox(g.cfgctrl)
       ws.Range("bh#{row}")['Value'] = g.refresh.value
