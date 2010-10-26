@@ -56,7 +56,15 @@ begin
   #Click the Configure SNTP link on the left side of window
   #Login if not called from controller
   g.logn_chk(g.time,excel[1])
-  
+
+  #Verify that SNTP checkbox is checked
+  puts g.time_enable.checked?
+  if g.time_enable.checked?.to_s == 'false'
+    Watir::Waiter.wait_until(5) { g.edit.exists?}
+    g.edit.click
+    g.time_enable.set
+    puts "Had to enable sntp in the script..."
+  end
   row = 1
   while(row <= rows)
     puts "Test step #{row}"
