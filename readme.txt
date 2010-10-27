@@ -1,7 +1,8 @@
-22.10.2010
+25.10.2010
 
---Created test script for Receptacle Sequence and Device Explorer
---Changed attribute in the method 'rcpname' from id to text at line 62 in rpc-devexprcpseq-nav.rb
+--Cleaned up Control and DeviceExplorerReceptacleSequence Files
+--Added one line description for all the methods in the above navigate library files.
+
 
 
 
