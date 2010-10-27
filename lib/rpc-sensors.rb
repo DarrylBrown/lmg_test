@@ -60,7 +60,6 @@ module Sensors
   # - control tab link
   def control; tab.image(:name, 'imgControl'); end
 
-
   #Sensors link
   def sensr; nav.link(:text, 'Sensors'); end
 
@@ -119,7 +118,6 @@ module Sensors
   #Under Relative Humidity Alarm Threshold text field
   def h_undrwrng; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id,'humThresholdLoWrn'); end
 
-
   #Temperature labels,asset tags,thresholds
   #Temperature User Assigned Label text field
   def t_usrlbl; catdet.form(:name, 'rpcControlSensorSettingForm').text_field(:id, 'tmpLabel'); end
@@ -171,11 +169,9 @@ module Sensors
 
 
   #Sensor ID link
-  #def sensrid(id); det.link(:text, "#{id}"); end
   def sensrid(id); $ie.frame(:index, 3).frame(:index, 3).link(:text, "#{id}"); end
 
   #Sensors Edit button
   def s_edit; catdet.button(:id, 'editButton'); end
-
 
 end
