@@ -23,7 +23,7 @@
 $:.unshift File.dirname(__FILE__) unless
 $:.include? File.dirname(__FILE__)
 
-require 'Generic54' # Put the latest version of Generic(xx).rb here
+require 'Generic56' # Put the latest version of Generic(xx).rb here
 
 class Generic < Generic_parent
   attr_accessor :links_array, :row_ptr

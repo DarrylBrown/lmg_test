@@ -43,8 +43,7 @@ require 'snmp'
 require 'telnet'
 require 'rpc-monitor-nav'
 require 'rpc-control-nav'
-require 'rpc-dev-explorer-nav'
-#require 'rpc-devexprcpseq-nav'
+require 'rpc-devexprcpseq-nav'
 require 'rpc-sensors.rb'
 
 class Generic_parent
@@ -56,7 +55,7 @@ class Generic_parent
   include Telnet_cstm
   include Monitornav
   include Controlnav
-  inlucde DevExpRcpSeq
+  include DevExpRcpSeq
   include Sensors
 
 
