@@ -1,5 +1,5 @@
 =begin rdoc
-*****Revisions*****
+*Revisions*
   | Change                                               | Name        | Date  |
 
 *Module_Name*
@@ -18,6 +18,7 @@
 
 =end
 
+
 module Monitornav
   #  - Tab area frameset abstraction
   def tab
@@ -26,7 +27,6 @@ module Monitornav
     else $ie
     end
   end
-
 
   # - Navigation link frameset abstraction
   def nav
@@ -51,38 +51,31 @@ module Monitornav
   # - monitor tab link
   def monitor; tab.image(:name, 'imgMonitor'); end  
 
-  #PDU-Explorer Link
+
+  # - PDU-Explorer Link
   def pdu_exp; nav.link(:text, 'PDU Explorer'); end
-
-  #Status Tab
+  # - Status Tab
   def m_status; det.image(:id, 'imgStatus'); end
-
-  #Events Tab
+  # - Events Tab
   def m_events; det.image(:id, 'imgEvents'); end
-
-  #Settings Tab
+  # - Settings Tab
   def m_settings; det.image(:id, 'imgSettings'); end
-
-  #Ratings Tab
-   def m_ratings; det.image(:id, 'imgInfo'); end
-
-  #PDU-Status---->Parameters Table Entries
+  # - Ratings Tab
+  def m_ratings; det.image(:id, 'imgInfo'); end
+  # - PDU-Status >> Parameters Table Entries
   def status(row,param); det.table(:index, 9)[row][param]; end
-
-  #PDU-Events---->Parameters Table Entries
+  # - PDU-Events >> Parameters Table Entries
   def events(row,column); det.table(:index, 10)[row][column]; end
-
-  #Receptacle-Settings---->Parameters Table Entries
+  # - Receptacle-Settings >> Parameters Table Entries
   def settings(row,column); det.table(:index, 11)[row][column]; end
-
-  #Receptacle-Ratings---->Parameters Table Entries
+  # - Receptacle-Ratings >> Parameters Table Entries
   def ratings(row,column); det.table(:index, 12)[row][column]; end
 
-  #PDU Tabs
+  
+  # - PDU Tabs
   def pdu(id); det.image(:index, "#{id}"); end
-
-  #PDU - Branch Scroll
+  # - PDU - Branch Scroll
   def scroll(id); det.image(:index, "#{id}"); end
-
-  #PDU-Branch-Receptacle Level
+  # - PDU-Branch-Receptacle Level
+  
 end
