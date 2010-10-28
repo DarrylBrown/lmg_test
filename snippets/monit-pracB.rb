@@ -1,3 +1,4 @@
+$:.unshift File.dirname(__FILE__).chomp('snippets')<<'lib' # add library to path
 require 'generic'
 #require 'watir/process'
  
