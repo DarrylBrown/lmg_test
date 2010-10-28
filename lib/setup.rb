@@ -157,6 +157,8 @@ module  Setup
         #ws.range("A#{row}:B#{row}").Columns.Autofit
         row+=1
       end
+      ws.range("A:B").ColumnWidth = 255 #255 is the maximum column width
+      ws.range("A:B").Rows.Autofit
       ws.range("A:B").Columns.Autofit
     end
     wb.Save
