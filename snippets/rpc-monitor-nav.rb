@@ -97,6 +97,7 @@ $ie.frame(:index, 3).frame(:index, 3).table(:index, 12)[2][2].click
 #Units
 $ie.frame(:index, 3).frame(:index, 3).table(:index, 12)[2][3].click
 =end
+
 def ratings(row,column); det.table(:index, 12)[row][column]; end
 
 #Receptacle-Settings---->Parameters
