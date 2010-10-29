@@ -9,20 +9,7 @@
 *Description*
   common methods used by all scripts
 
-*Variables*
-  start     = first table row
-  row       = last table row
-  col       = table column
-  idx       =
-  ws        =
-  href_rst  =
-  a         =
-  button    =
-  user_inp  =
-  ttxt      =
-  pop_exp   =
-  pop_name  =
-  
+
 Lmg_test\ruby\dd.mm.yyyy  [Core Framework]
     |
     |__lib 
