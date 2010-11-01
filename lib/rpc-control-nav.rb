@@ -14,7 +14,7 @@
     - tables
     - text fields
 
-*Variables*
+*Variables for testing purpose*
 
 =end
 
