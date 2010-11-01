@@ -14,7 +14,7 @@
     - tables
     - text fields
 
-*Variables*
+*Variables* for testing purpose on dated 1-Nov-2010
 
 =end
 
