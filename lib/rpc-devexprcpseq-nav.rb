@@ -1,8 +1,29 @@
-#**************************************Device-Explorer************************************#
+=begin rdoc
+*Revisions*
+  | Change                                               | Name        | Date  |
+
+*Module_Name*
+  Navigate
+
+*Description*
+  Object repository for:(Device Explorer and Receptacle Sequence
+    - navigation tabs
+    - navigation links
+    - buttons
+    - radio buttons
+    - tables
+    - text fields
+
+*Variables*
+
+=end
+
 
 module DevExpRcpSeq
 
-def tab
+
+  #  - Tab area frameset abstraction
+  def tab
     frame_text = self.redirect {$ie.show_frames}
     if frame_text =~ /tabArea/ then $ie.frame(:name, 'tabArea')
     else $ie
@@ -10,8 +31,8 @@ def tab
   end
   
   
-  # - Navigation link frameset abstration
-def nav
+  # - Navigation link frameset abstraction
+  def nav
     frame_text = self.redirect {$ie.show_frames}
     if frame_text =~ /infoArea/ then $ie.frame(:name, 'infoArea').frame(:name, 'navTreeArea')
     else $ie.frame(:id, 'navigationFrame')
@@ -25,84 +46,72 @@ def nav
   #   - radio button
   #   - text fields
   #   - tables
-def det
+  def det
     if has_frame?('infoArea') then  $ie.frame(:name, 'infoArea').frame(:name, 'detailArea')
     else $ie.frame(:index, 3)
     end
   end
 
-# - monitor tab link
-def monitor; tab.image(:name, 'imgMonitor'); end
+  # - monitor tab link
+  def monitor; tab.image(:name, 'imgMonitor'); end
   
-# - control tab link
-def control; tab.image(:name, 'imgControl'); end
+  # - control tab link
+  def control; tab.image(:name, 'imgControl'); end
+
+  # - Device Explorer Link  
+  def dev_exp; nav.link(:text, 'Device Explorer'); end
   
-#Device Explorer Link  
-#$ie.frame(:index, 3).frame(:index, 2).link(:text, 'Device Explorer').click
-def dev_exp; nav.link(:text, 'Device Explorer'); end
+  # - Select All checkbox
+  def select_all; det.checkbox(:id, 'selectAll'); end
 
-#Receptacle Sequence Link
-#$ie.frame(:index, 3).frame(:index, 2).link(:text, 'Receptacle Sequence').click
-def rcp_sequence;nav.link(:text, 'Receptacle Sequence');end
+  # - Select individual checkboxes
+  def select_one(idx); det.checkbox(:id, "#{idx}"); end
 
-#Receptacle Sequence-Header --Sort by delay
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'Delay').click
-def sort_delay ;det.link(:text, 'Receptacle Sequence');end
+  # - Receptacle Power State dropdownlist
+  def rcpstate; det.form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpStateAction'); end
 
-#Delay for All Receptacle-Table Entry
-#$ie.frame(:index, 3).frame(:index, 3).table(:id, 'rcpTable')[2][1].click
-def rcp_table(row,column); det.table(:id, 'rcpTable')[row][column];end
+  # - Receptacle Lock State dropdownlist
+  def rcplckstate; det.form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpLockAction'); end
 
-#Label
-#$ie.frame(:index, 3).frame(:index, 3).form(:index, 1).text_field(:id, 'searchBox').set('')
-def dev_label; det.form(:id, 'rpcControlReceptacleListForm').text_field(:id, 'searchBox'); end
+  # - Receptacle Power State Save button
+  def rcpstsave; det.button(:id, 'Save'); end
 
-#Receptacle Name
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'Receptacle 1').click
-def rcpname(id); det.link(:text, "#{id}"); end
+  # - Receptacle Lock State Save button
+  def rcplcksave; det.button(:id, 'lockStateButton'); end
+  
+  # - Label text field
+  def dev_label; det.form(:id, 'rpcControlReceptacleListForm').text_field(:id, 'searchBox'); end
 
-#Receptacle Id
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, '1-1-1').click
-def rcpid(id); det.link(:text,"#{id}"); end
+  # - Receptacle Sequence Link
+  def rcp_sequence;nav.link(:text, 'Receptacle Sequence');end
 
-#Select All checkbox
-#$ie.frame(:index, 3).frame(:index, 3).checkbox(:id, 'selectAll').set(set_or_clear=true)
-def select_all; det.checkbox(:id, 'selectAll'); end
+  # - Receptacle Sequence-Header --Sort by delay link
+  def sort_delay ;det.link(:text, 'Receptacle Sequence');end
 
-#Select individual checkboxes
-#$ie.frame(:index, 3).frame(:index, 3).checkbox(:id, '1_0').set(set_or_clear=true)
-def select_one(idx); det.checkbox(:id, "#{idx}"); end
+  # - Delay for All Receptacle-Table Entry 
+  def rcp_table(row,column); det.table(:id, 'rcpTable')[row][column];end
 
-#Receptacle Power State dropdownlist
-#$ie.frame(:index, 3).frame(:index, 3).form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpStateAction').select_value('0')
-def rcpstate; det.form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpStateAction'); end
+  # - Common fields in Device Explorer and Receptacle Sequence
+  # - Receptacle Name Link
+  def rcpname(id); det.link(:text, "#{id}"); end
+  
+  # - Receptacle Id Link
+  def rcpid(id); det.link(:text,"#{id}"); end
+  
+  # - Label Sort Link
+  def label_sort; det.link(:text, 'Receptacle User Assigned Label'); end
 
-#Receptacle Lock State dropdownlist
-#$ie.frame(:index, 3).frame(:index, 3).form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpLockAction').select_value('0')
-def rcplckstate; det.form(:id, 'rpcControlReceptacleListForm').select_list(:id, 'rcpLockAction'); end
+  # - ID Sort Link
+  def id_sort; det.link(:text, 'Id'); end
+  
+  # - OnOff Sort link
+  def onoff_sort; det.link(:text, 'O'); end
+  
+  # - Control Sort Link
+  def control_sort; det.link(:text, 'C'); end
+  
+  # - Status Sort Link
+  def status_sort; det.link(:text, 'S'); end
 
-#Receptacle Power State Save button
-#$ie.frame(:index, 3).frame(:index, 3).button(:id, 'Save').click
-def rcpstsave; det.button(:id, 'Save'); end
-
-#Receptacle Lock State Save button
-#$ie.frame(:index, 3).frame(:index, 3).button(:id, 'lockStateButton').click
-def rcplcksave; det.button(:id, 'lockStateButton'); end
-
-#Device Explorer --Headers
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'Receptacle User Assigned Label').click
-def label_sort; det.link(:text, 'Receptacle User Assigned Label'); end
-
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'Id').click
-def id_sort; det.link(:text, 'Id'); end
-
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'O').click
-def onoff_sort; det.link(:text, 'O'); end
-
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'C').click
-def control_sort; det.link(:text, 'C'); end
-
-#$ie.frame(:index, 3).frame(:index, 3).link(:text, 'S').click
-def status_sort; det.link(:text, 'S'); end
 
 end

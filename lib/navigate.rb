@@ -55,7 +55,7 @@ module Nav
 
   # - Equipment / Agent Information navigation link.
   def equipinfo
-    if (nav.link(:text, 'Equipment Information')).exists?
+    if nav.link(:text, 'Equipment Information').exists?
       nav.link(:text, 'Equipment Information')
     else
       nav.link(:text, 'Agent Information')
@@ -144,8 +144,9 @@ module Nav
   def web_updt; save; end 
   # - Restart button
   def restart1; save ; end
+  # - Reset to Factory Defaults Button
+  def reset_to_factory_defaults; det.button(:value, 'Reset To Factory Defaults'); end;
 
-  
   # - Equipment Name text field
   def name; det.form(:name, 'configDevice').text_field(:id, 'deviceName'); end
   # - Equipment Contact text field
@@ -218,12 +219,16 @@ module Nav
   def timesync(rate); det.radio(:name, 'timeSyncGroup',"#{rate}"); end
   # - Time(SNTP) timezone select list
   def timezone; det.select_list(:id, 'timezone'); end
+  # - Time(SNTP) enable checkbox
+  def time_enable; det.checkbox(:id, 'enableSntp'); end;
   
 
   # - Management protocol snmp agent checkbox
   def snmp_en; det.checkbox(:id, 'enableSNMP'); end
   # - Management protocol Velocity v.4 Server checkbox
   def v4_en; det.checkbox(:id, 'enableVelocity'); end
+  # - Management protocol snmp agent checkbox on webx card
+  def snmp_enable; det.checkbox(:name, 'enableSNMP'); end;
 
   # - Management protocol snmp agent checkbox
   def snmp_agent; det.checkbox(:id, 'enableSnmpAgent'); end
@@ -421,6 +426,10 @@ module Nav
 
   # - Web server mode delect list
   def websrvr; det.form(:name, 'configWeb').select_list(:id, 'webMode'); end
+  #Constants for websrvr combo box
+  DISABLED = '00000000'
+  HTTP = '00000001'
+  HTTPS = '00000002'
   # - Web server http port text field
   def httpport; det.form(:name, 'configWeb').text_field(:id, 'webPort'); end
   # - Web server https port text field
@@ -505,17 +514,3 @@ module Nav
   end
 
 end
-
-
-
-
-
- 
-
-
-
-
-
-
-
-

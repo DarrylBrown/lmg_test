@@ -39,7 +39,7 @@ module  Teardown
     if roe > 0  # called from controller
       # Connect to the controller script to update the status and time
       ss = WIN32OLE.connect('excel.Application')
-      wb = ss.ActiveWorkbook
+      wb = ss.ActiveWorkbook #TODO Using the active workbook doesn't work here
       ws = wb.Worksheets(1)
       ws.Range("l#{roe}")['Value'] = status.to_s
       ws.Range("n#{roe}")['Value'] = run_time.to_s

@@ -13,19 +13,23 @@ def chng_xls(xl_name)
   xl = (PATH + xl_name) # ss full name
   puts xl_name # file being updated currently
   ss = WIN32OLE::new('excel.Application')
-  ss.visible = true
+  ss.visible = false
+  ss.DisplayAlerts = false
   wb = ss.Workbooks.Open(xl)
   ws = wb.Worksheets(1)
 
   # - write new IP to spreadsheet
   ws.Range("b3").value = IP
   wb.save
+  wb.close
   ss.quit
+  ss.visible = true
+  ss.DisplayAlerts = true
 end
 
 # - change directory to "..\driver\"
 # - backslashes are needed in path to open excel file
-Dir.chdir("./driver")
+Dir.chdir("../driver")
 PATH = ((Dir.getwd) + '/').gsub('/','\\')
 puts " Driver folder being updated is - #{PATH}"
 
@@ -35,6 +39,6 @@ IP = gets.chomp!
 IP = '126.4.202.212' if IP.empty? # change the default as needed
 
 # - change ip in each file in the array
-Dir.glob('*xls').each{|x| chng_xls(x)}
+Dir.glob('tbl*.xls').each{|x| chng_xls(x)}
   
 puts " \n   Updates Complete"
