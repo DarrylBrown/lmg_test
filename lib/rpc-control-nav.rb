@@ -14,7 +14,8 @@
     - tables
     - text fields
 
-*Variables for testing purpose*
+
+*Variables for Testing purpose dated 1st November 2010*
 
 =end
 
