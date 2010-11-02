@@ -52,6 +52,8 @@ module DevExpRcpSeq
     end
   end
 
+  
+  # - RPC-Device Explorer navigation link   
   # - monitor tab link
   def monitor; tab.image(:name, 'imgMonitor'); end
   
