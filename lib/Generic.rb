@@ -33,11 +33,12 @@ require 'setup'
 require 'teardown'
 require 'snmp'
 require 'telnet'
-require 'rpc-monitor-nav'
-require 'rpc-control-nav'
-require 'rpc-dev-explorer-nav'
-require 'rpc-devexprcpseq-nav'
-require 'rpc-sensors.rb'
+#require 'rpc-monitor-nav'
+#require 'rpc-control-nav'
+#require 'rpc-dev-explorer-nav'
+#require 'rpc-devexprcpseq-nav'
+#require 'rpc-sensors.rb'
+require 'rpc-navigate.rb'
 
 class Generic
   include Nav
