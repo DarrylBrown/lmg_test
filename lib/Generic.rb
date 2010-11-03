@@ -33,11 +33,12 @@ require 'setup'
 require 'teardown'
 require 'snmp'
 require 'telnet'
-require 'rpc-monitor-nav'
-require 'rpc-control-nav'
-require 'rpc-dev-explorer-nav'
-require 'rpc-devexprcpseq-nav'
-require 'rpc-sensors.rb'
+#require 'rpc-monitor-nav'
+#require 'rpc-control-nav'
+#require 'rpc-dev-explorer-nav'
+#require 'rpc-devexprcpseq-nav'
+#require 'rpc-sensors.rb'
+require 'rpc-navigate.rb'
 
 class Generic
   include Nav
@@ -46,10 +47,11 @@ class Generic
   include Setup
   include Snmp
   include Telnet_cstm
-  include Monitornav
-  include Controlnav
-  include DevExpRcpSeq
-  include Sensors
+  #include Monitornav
+  #include Controlnav
+  #include DevExpRcpSeq
+  #include Sensors
+   include RpcNav
 
   attr_accessor :links_array, :row_ptr
   attr_reader :num_frames, :test_site, :community_string
