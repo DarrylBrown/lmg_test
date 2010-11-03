@@ -47,10 +47,11 @@ class Generic
   include Setup
   include Snmp
   include Telnet_cstm
-  include Monitornav
-  include Controlnav
-  include DevExpRcpSeq
-  include Sensors
+  #include Monitornav
+  #include Controlnav
+  #include DevExpRcpSeq
+  #include Sensors
+   include RpcNav
 
   attr_accessor :links_array, :row_ptr
   attr_reader :num_frames, :test_site, :community_string
