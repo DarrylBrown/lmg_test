@@ -1,4 +1,4 @@
-$:.unshift File.dirname(__FILE__).chomp('snippets')<<'lib' # add library to path
+$:.unshift File.dirname(__FILE__).chomp('unittests')<<'lib' # add library to path
 require 'generic'
 #require 'watir/process'
  

@@ -1,4 +1,3 @@
-
 =begin rdoc
 *Revisions*
   | Change                                               | Name        | Date  |
@@ -33,11 +32,7 @@ require 'setup'
 require 'teardown'
 require 'snmp'
 require 'telnet'
-require 'rpc-monitor-nav'
-require 'rpc-control-nav'
-require 'rpc-dev-explorer-nav'
-require 'rpc-devexprcpseq-nav'
-require 'rpc-sensors.rb'
+require 'rpc-navigate.rb'
 
 class Generic
   include Nav
@@ -46,10 +41,7 @@ class Generic
   include Setup
   include Snmp
   include Telnet_cstm
-  include Monitornav
-  include Controlnav
-  include DevExpRcpSeq
-  include Sensors
+  include RpcNav
 
   attr_accessor :links_array, :row_ptr
   attr_reader :num_frames, :test_site, :community_string
@@ -64,8 +56,6 @@ class Generic
     @community_string = ''
   end
   
-  
- 
   #
   # - used for configure information table scripts
   # - 'fw == 1' is for firmwareweb_table_info
