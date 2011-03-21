@@ -88,39 +88,32 @@ class Generic
 
 
   #
-  # - currently not used, will require refactoring for latest framework
-  def restart(gen,href_rst) #TODO: this method requires refactoring
-    puts "click on Restart folder in the left pane"
-    #sleep 11
-    puts"href_restart = #{href_rst}"
-    #link(gen,'imgConfigure','Restart')
-    #link_name='Restart' or 'Reinitialize'
-
-    restart_link = $ie.frame(:index, 3).frame(:index, 2).link(:href,href_rst).exists?
-    puts "restart_link = #{restart_link}"
-    if (restart_link == false)
-      sleep 7
-      main_tab('imgConfigure')
-      restart_link = $ie.frame(:index, 3).frame(:index, 2).link(:href,href_rst).exists?
-      puts "restart_link = #{restart_link}"
+  # - restart the card and go back to the url
+  # - default count down after ping response is 50 seconds.
+  def restart_wb(cnt_dn = 50)
+    puts "*** restarting card ***"
+    rstrt.click
+    rstart.click_no_wait
+    flag = false
+    while flag == false
+      sleep(30)
+      print "pinging card - "
+      ip = $ie.url.delete"http:/" #remove "http://" from url to form a pure ip
+      if `ping #{ip}` =~ /Reply from/ # if ping result contains "Reply from"
+        puts "successful"
+        print "seconds remaining - "
+        while cnt_dn > 0
+          print cnt_dn,".. "
+          cnt_dn -= 5
+          sleep 5
+        end
+        flag = true
+        puts"\n", "*** restart completed ***"
+      else
+        puts "unsuccessful"
+      end
     end
-    $ie.frame(:index, 3).frame(:index, 2).link(:href,href_rst).click_no_wait
-    login_pop_exists = login($test_site,$login,$password)
-    if (login_pop_exists == '1')
-      jsClick($ie,"OK")
-    end
-
-    puts "Click on the Restart Button in the Restart dialogue"
-
-    # Click_no_wait is needed at this point or the script will loose control
-    # when the card restarts.
-    $ie.frame(:index, 3).frame(:index, 3).button(:name,'Submit').click_no_wait
-    puts "go to sleep for 60 seconds"
-    sleep 30 #TODO replace the hard sleeps with ping polling method
-    puts "I'm awake now. Let's go back to the test-site!"
-
-    $ie.close
-    sleep 40
+    $ie.goto($ie.url)
   end
 
     
