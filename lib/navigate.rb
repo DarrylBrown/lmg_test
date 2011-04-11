@@ -21,7 +21,31 @@
 
 module Nav
 
- 
+  #method to retry/rescue elements.
+  def obj_retry(obj)
+    tries = 0
+    begin
+      sleep 1
+      yield.name#".name" is an action to cause an exception
+      yield
+    rescue
+      tries += 1
+      sleep(0.5)
+      puts  "retry #{obj} #{tries}"
+      if(obj=="tab")
+        puts "refresh F5"
+        Watir.autoit.Send('{F5}')#rescue for tab is refresh page again.
+        sleep 3
+      elsif(obj=="link")
+        config.click#rescue for link is click config tab again.
+        #else
+        #do nothing for button rescue
+      end
+      retry if tries <= 9
+      puts "retry limit reached!"
+    end
+  end
+
   #  - Tab area frameset abstration
   def tab
     frame_text = self.redirect {$ie.show_frames}
@@ -35,13 +59,18 @@ module Nav
   # - control tab link
   def control; tab.image(:id, 'imgControl'); end
   # - config tab link
-  def config; tab.image(:id, 'imgConfigure'); end
+  #def config; tab.image(:id, 'imgConfigure'); end
+  def config
+    obj_retry("tab") do; tab.image(:id, 'imgConfigure'); end
+  end
   # - event log tab link
   def evtlog; tab.image(:id, 'imgEventLog'); end
   # - data logs tab link
   def datalogs; tab.image(:id, 'imgDatalogs'); end
   # - support tab link
-  def supp; tab.image(:id, 'imgSupport'); end
+  def supp
+    obj_retry("tab") do; tab.image(:id, 'imgSupport'); end
+  end
 
 
 
@@ -55,10 +84,12 @@ module Nav
 
   # - Equipment / Agent Information navigation link.
   def equipinfo
-    if nav.link(:text, 'Equipment Information').exists?
-      nav.link(:text, 'Equipment Information')
-    else
-      nav.link(:text, 'Agent Information')
+    obj_retry("link") do
+      if nav.link(:text, 'Equipment Information').exists?
+        nav.link(:text, 'Equipment Information')
+      else
+        nav.link(:text, 'Agent Information')
+      end
     end
   end
   # - Factory Defaults configuration link
@@ -66,48 +97,83 @@ module Nav
   # - Firmware Update configuration link
   def fwupdt; nav.link(:text, 'Firmware Update'); end
   # - Firmware Update Web configuration link
-  def updtweb; nav.link(:text, 'Web'); end
+  def updtweb
+    obj_retry("link") do; nav.link(:text, 'Web'); end
+  end
   # - TFTP configuration link
-  def updttftp; nav.link(:text, 'TFTP'); end
+  def updttftp
+    obj_retry("link") do; nav.link(:text, 'TFTP'); end
+  end
   # - Network Settings configuration link
-  def netset; nav.link(:text, 'Network Settings'); end
+  def netset
+    obj_retry("link") do; nav.link(:text, 'Network Settings'); end
+  end
   # - DNS configuration link
-  def dns; nav.link(:text, 'DNS'); end
+  def dns
+    obj_retry("link") do; nav.link(:text, 'DNS'); end
+  end
   # - DNS Test configuration link
-  def dnstest; nav.link(:text, 'Test'); end
+  def dnstest
+    obj_retry("link") do; nav.link(:text, 'Test'); end
+  end
   # - SNTP configuration link
-  def time; nav.link(:text, /Time/); end
+  def time
+    obj_retry("link") do; nav.link(:text, /Time/); end
+  end
   # - Management Protocol configuration link
-  def mgtprot; nav.link(:text, 'Management Protocol'); end
+  def mgtprot
+    obj_retry("link") do; nav.link(:text, 'Management Protocol'); end
+  end
   # - SNMP configuration link
-  def snmp; nav.link(:text, 'SNMP'); end
+  def snmp
+    obj_retry("link") do; nav.link(:text, 'SNMP'); end
+  end
   # - SNMP Access configuration link
   def access; nav.link(:text, 'Access'); end
   # - SNMP Traps configuration link
   def traps; nav.link(:text, 'Traps'); end
   # - SNMP V1 Access configuration link (for V3 card)
-  def v1access; nav.link(:text, 'V1 Access'); end
+  def v1access 
+    obj_retry("link") do;  nav.link(:text, 'V1 Access'); end
+  end
   # - SNMP V1 Traps configuration link (for V3 card)
-  def v1traps; nav.link(:text, 'V1 Traps'); end
+  def v1traps 
+    obj_retry("link") do; nav.link(:text, 'V1 Traps'); end
+  end
   # - SNMP V3 settings configuration link
   def snmpv3; nav.link(:text, 'V3 Settings'); end
   # - Messaging configuration link
-  def msging; nav.link(:text, 'Messaging'); end
+  def msging 
+    obj_retry("link") do; nav.link(:text, 'Messaging');  end
+  end
   # - Email configuration link
-  def email; nav.link(:text, 'Email'); end
+  def email
+    obj_retry("link") do; nav.link(:text, 'Email');  end
+  end
   # - SMS configuration link
-  def sms; nav.link(:text, 'SMS'); end
+  def sms
+    obj_retry("link") do; nav.link(:text, 'SMS');  end
+  end
 
   # - Customize Message configuration link
-  def custmsg; nav.link(:text, 'Customize Message'); end
+  #def custmsg; nav.link(:text, 'Customize Message'); end
+  def custmsg
+    obj_retry("link") do; nav.link(:text, 'Customize Message');  end
+  end
   # - Restart configuration link
   def rstrt; nav.link(:text, 'Restart'); end
   # - Telnet configuration link
-  def telnet; nav.link(:text, 'Telnet'); end
+  def telnet
+    obj_retry("link")  do; nav.link(:text, 'Telnet');  end
+  end
   # - Users configuration link
-  def users; nav.link(:text, 'Users'); end
+  def users
+    obj_retry("link")do;nav.link(:text, 'Users'); end
+  end
   # - Web Configuration link
-  def cfgweb; nav.link(:text => 'Web', :index => 2); end
+  def cfgweb
+    obj_retry("link")do;nav.link(:text => 'Web', :index => 2); end
+  end
   # - SNMP Capabitlites - Events - Link
   def events; nav.link(:text => 'Events'); end;
   # - SNMP Capabitlites - Parameters - Link
@@ -121,7 +187,7 @@ module Nav
   #   - radio button
   #   - text fields
   #   - tables
-   def det
+  def det
     if has_frame?('infoArea') then  $ie.frame(:name, 'infoArea').frame(:name, 'detailArea')
     else $ie.frame(:index, 3)
     end
@@ -129,15 +195,32 @@ module Nav
 
 
   # - Edit button
-  def edit; det.button(:id, 'editButton'); end
+  #def edit; det.button(:id, 'editButton'); end
+  def edit
+    obj_retry("button") do; det.button(:id, 'editButton');  end
+  end
   # - Save button
-  def save; det.button(:name, 'Submit'); end
+  #def save; det.button(:name, 'Submit'); end
+  def save
+    obj_retry("button") do; det.button(:name, 'Submit');  end
+  end
   # - Reset button
+=begin
   def reset
     if det.button(:value, 'Reset').exists?
       det.button(:value, 'Reset')
     else
       det.button(:value, 'Cancel')
+    end
+  end
+=end
+  def reset
+    obj_retry("button") do
+      if det.button(:value, 'Reset').exists?
+        det.button(:value, 'Reset')
+      else
+        det.button(:value, 'Cancel')
+      end
     end
   end
   # - Firmware Update button
@@ -169,7 +252,6 @@ module Nav
 
   # - Firmware File Upload file field
   def web_file; $ie.form(:name, 'firmwareHttpForm').file_field(:id, 'Firmware File Upload'); end
- 
 
   # - TFTP update firmware button
   def tftp_updt; det.button(:id, 'tftpUpdateFirmware'); end
@@ -206,7 +288,9 @@ module Nav
 
 
   # - DNS test type  select list
-  def dnstype; det.form(:name, 'configDnsTest').select_list(:name, 'dnsQueryType'); end
+  def dnstype
+    obj_retry("selectlist")do;det.form(:name, 'configDnsTest').select_list(:name, 'dnsQueryType'); end
+  end
   # - DNS test question text field
   def dns_ques; det.form(:name, 'configDnsTest').text_field(:name, 'dnsQuestion'); end
   # - DNS test query button
@@ -424,12 +508,12 @@ module Nav
   def user_pswd2; det.form(:name, 'configUser').text_field(:id, 'password2User'); end
 
 
-  # - Web server mode delect list
-  def websrvr; det.form(:name, 'configWeb').select_list(:id, 'webMode'); end
   #Constants for websrvr combo box
   DISABLED = '00000000'
   HTTP = '00000001'
   HTTPS = '00000002'
+  # - Web server mode delect list
+  def websrvr; det.form(:name, 'configWeb').select_list(:id, 'webMode'); end
   # - Web server http port text field
   def httpport; det.form(:name, 'configWeb').text_field(:id, 'webPort'); end
   # - Web server https port text field
