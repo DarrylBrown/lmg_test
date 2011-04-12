@@ -3,7 +3,7 @@
   | Change                                               | Name        | Date  |
 
 *Class_Name*
-  Generic  
+  Generic
 
 *Description*
   common methods used by all scripts
@@ -11,12 +11,12 @@
 
 Lmg_test\ruby\dd.mm.yyyy  [Core Framework]
     |
-    |__lib 
+    |__lib
     |__controller
     |__driver
     |__result
 
-    
+
 =end
 
 $:.unshift File.dirname(__FILE__) unless
@@ -47,15 +47,15 @@ class Generic
   attr_reader :num_frames, :test_site, :community_string
 
   def initialize
-     @num_frames = 0
-     @row_ptr = 2 #Start righting at row 2
-     @links_array = Array.new
+    @num_frames = 0
+    @row_ptr = 2 #Start righting at row 2
+    @links_array = Array.new
 
     #SNMP Related Class Variables
     @test_site = ''
     @community_string = ''
   end
-  
+
   #
   # - used for configure information table scripts
   # - 'fw == 1' is for firmwareweb_table_info
@@ -88,6 +88,7 @@ class Generic
 
 
   #
+
   # - restart the card and go back to the url
   # - default count down after ping response is 50 seconds.
   def restart_wb(cnt_dn = 50)
@@ -116,18 +117,20 @@ class Generic
     $ie.goto($ie.url)
   end
 
-    
+
   #  - function jsClick- Handle popup and return pop up text if 'rtxt' is true
   #  - user_input is used for firmware update file dialogue box
   def jsClick( a, button, user_inp = nil,rtxt = nil)
     wait = 70
     hwnd1 = $ie.enabled_popup(wait) # wait up to 60 seconds for a popup to appear
-    #puts "hwnd = #{hwnd1}"
+
     if (hwnd1)
       w = WinClicker.new
       if (rtxt)
-      popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
+        popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
+
       end
+
       if (user_inp)
         w.setTextValueForFileNameField(hwnd1, "#{user_inp}")
       end
@@ -139,50 +142,51 @@ class Generic
     puts"pop-up text = #{popup_text}"
   end
 
-  
+
   #  - after attempting to save an invalid character - reset OK or
   #  - reset Cancel And reset OK, return text in popup
   def invChar( a,pop_exp,user_inp = nil)
     save.click_no_wait
-    poptxt = jsClick( $ie,"OK",user_inp = nil,"rtxt")
+    poptxt = jsClick( $ie,@@ok ,user_inp = nil,"rtxt")
+
     if (pop_exp == "can")
       reset.click_no_wait
-      jsClick( $ie,"Cancel",user_inp = nil)
+      jsClick( $ie,@@cancel ,user_inp = nil)
       edit.click
     end
     reset.click_no_wait
-    jsClick( $ie,"OK",user_inp = nil)
+    jsClick( $ie,@@ok ,user_inp = nil)
     return poptxt
-  end  
-  
-  
-  #  
+  end
+
+
+  #
   #  - reset Cancel or reset OK, implicitly return text in popup
   #  - res = Reset
   #  - can = Cancel
   def res_can(pop_exp)
     if (pop_exp == "res")
       reset.click_no_wait
-      jsClick( $ie,"OK",user_inp = nil,"rtxt")
+      jsClick( $ie,@@ok,user_inp = nil,"rtxt")
     elsif (pop_exp == "can")
       reset.click_no_wait
-      jsClick( $ie,"Cancel",user_inp = nil,"rtxt")
+      jsClick( $ie,@@cancel,user_inp = nil,"rtxt")
     end
-  end  
+  end
 
 
-  #  - reset to factory defaults ok or cancle, return text in popup
+  #  - reset to factory defaults ok or cancel, return text in popup
   def res_factory(pop_exp)
     if (pop_exp == "res")
       restart1.click_no_wait
-      jsClick( $ie,"OK",user_inp = nil,"rtxt")
+      jsClick( $ie,@@ok,user_inp = nil,"rtxt")
     elsif (pop_exp == "can")
       restart1.click_no_wait
-      jsClick( $ie,"Cancel",user_inp = nil,"rtxt")
+      jsClick( $ie,@@cancel,user_inp = nil,"rtxt")
     end
   end
-  
-  #    
+
+  #
   #  - read checkbox status and return set of clear
   def checkbox(box)
     if box.checked?
@@ -192,17 +196,17 @@ class Generic
     end
   end
 
-    #-read radio status and return radio number which selected in the table
+  #-read radio status and return radio number which selected in the table
   def radio_check(table)
     table.radios.each{|x| if x.checked? then  return  x.value end }
   end
 
-    #  - <code>frame_idx</code> is the numerical index of the frame you want to
+  #  - <code>frame_idx</code> is the numerical index of the frame you want to
   #  - check for tables.
   def has_table?(frame_idx)
     str = ''
     $ie.frame(:index,frame_idx).tables.each do |t|
-       str << t.to_s
+      str << t.to_s
     end
     return !str.empty?
   end
@@ -224,7 +228,7 @@ class Generic
             ws.cells(@row_ptr, 1).value = report_name.to_s #Writes the link(report)
             for j in 2..table.column_count
               if report_name =~ /\[.*\]/ and j == 2 then # Special case for multi-modules
-               ws.cells(@row_ptr, j).value = table[i][j].text + " (#{report_name})"
+                ws.cells(@row_ptr, j).value = table[i][j].text + " (#{report_name})"
               else
                 ws.cells(@row_ptr, j).value = table[i][j].text
               end
