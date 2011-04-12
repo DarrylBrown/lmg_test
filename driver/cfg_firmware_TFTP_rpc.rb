@@ -78,8 +78,9 @@ begin
     elsif pop == "can"
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else
-      g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.save.click
+      #g.save.click_no_wait
+      #g.jsClick('Windows Internet Explorer', 'OK')
     end
  
     #read Configure Web field values
@@ -90,9 +91,10 @@ begin
     ws.Range("bc#{row}")['Value'] = g.tftp_srvr.value
     #ws.Range("bd#{row}")['Value'] = g.tftp_port.value
     ws.Range("bd#{row}")['Value'] = g.tftp_file.value
-    
-    g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+
+    g.save.click
+    #g.save.click_no_wait
+    #g.jsClick('Windows Internet Explorer', 'OK')
     wb.Save
   end
 
