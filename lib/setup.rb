@@ -112,7 +112,23 @@ module  Setup
     nav.click
   end
 
-  
+
+   def systemos
+    lang = `systeminfo`
+    if lang =~ /en-us*/
+      @@os          = "English"
+      @@titl          = "Connect to "
+      @@ok       ="OK"
+      @@cancel    = "Cancel"
+    elsif lang =~ /zh-cn*/
+      @@os           = "Chinese"
+      @@titl           = "连接到 "
+      @@ok        ="确定"
+      @@cancel      = "取消"
+    end
+    puts "This OS is #{@@os}"
+  end
+
   #    - thread based method to login to web page
   #    - acknowledge security alert
   #    - uses standard .click as opposed to .click_no_wait
@@ -143,6 +159,7 @@ module  Setup
   #    - collects support page table:
  
   def support(xl)
+    systemos      #Determine whether the OS is Chinese or English
     puts "  Collect Support page info"
     supp.click
     sleep 1
