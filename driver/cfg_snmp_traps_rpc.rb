@@ -108,7 +108,7 @@ begin
   $ie.maximize  
   #Click the SNMP Traps link on the left side of widow
   #Login if not called from controller
-  g.logn_chk(g.traps,excel[1])
+  g.logn_chk(g.v1traps,excel[1])
 
   #Clear All SNMP Traps textboxes
   g.edit.click
