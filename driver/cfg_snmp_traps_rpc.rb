@@ -103,7 +103,7 @@ begin
   wb,ws = excel[0][1,2]
   rows = excel[1][1] 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the SNMP Traps link on the left side of widow
@@ -116,7 +116,8 @@ begin
   g.trap_clr(i).click
   g.trap_hb(i).clear
   end
-  g.save.click
+  g.save.click_no_wait
+  g.jsClick('Windows Internet Explorer', 'OK')
   
   row = 1
   while(row <= rows)
@@ -143,8 +144,8 @@ begin
       
       puts "Save Flag = #{save_flag}"
       if save_flag == "S"
-        g.save.click
-        #g.jsClick('Windows Internet Explorer', 'OK')
+        g.save.click_no_wait
+        g.jsClick('Windows Internet Explorer', 'OK')
       end
     end
 
@@ -158,7 +159,8 @@ if save_flag == "S"
       puts "Start row = #{strt_row}"
       puts "End row = #{end_row}"
       row_fill(g,ws,strt_row)
-      g.save.click
+      g.save.click_no_wait
+      g.jsClick('Windows Internet Explorer', 'OK')
 	  
   end
     wb.Save
