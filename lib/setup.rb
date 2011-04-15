@@ -133,7 +133,8 @@ module  Setup
   #    - acknowledge security alert
   #    - uses standard .click as opposed to .click_no_wait
   def login(site,user,pswd)
-    conn_to = 'Connect to '+ site
+    
+    conn_to = @@titl + site
     Thread.new{
       thread_cnt = Thread.list.size
       sleep 1 #This sleep is critical, timing may need to be adjusted
@@ -142,7 +143,7 @@ module  Setup
       Watir.autoit.Send(user)
       Watir.autoit.Send('{TAB}')
       Watir.autoit.Send(pswd)
-      popup('Windows Internet Explorer','OK') #launch thread for alert popup
+      popup('Windows Internet Explorer',@@ok) #launch thread for alert popup
       Watir.autoit.Send('{ENTER}')
     }
   end
