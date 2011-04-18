@@ -121,6 +121,11 @@ class Generic
   #  - function jsClick- Handle popup and return pop up text if 'rtxt' is true
   #  - user_input is used for firmware update file dialogue box
   def jsClick( a, button, user_inp = nil,rtxt = nil)
+    if button=="OK"||button=="È·¶¨"
+      button=@@ok
+    else
+      button =@@cancel
+    end
     wait = 70
     hwnd1 = $ie.enabled_popup(wait) # wait up to 60 seconds for a popup to appear
 
