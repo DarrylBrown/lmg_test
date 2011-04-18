@@ -101,7 +101,7 @@ begin
   $ie.maximize  
   #Click the Configure SNMP Access link on the left side of window
   #Login if not called from controller
-  g.logn_chk(g.v1access,excel[1])
+  g.logn_chk(g.access,excel[1])
   
   #Clear All SNMP Access textboxes
   g.edit.click

@@ -65,7 +65,7 @@ begin
     g.edit.click
   
     # Write SNMP Agent checkbox
-    if ws.Range("k#{row}")['Value'] == 'set' then g.snmp_v1v2.set else g.snmp_v1v2.clear end
+    if ws.Range("k#{row}")['Value'] == 'set' then g.snmp_en.set else g.snmp_en.clear end
     
     # if a popup is expected, handle with Reset-OK or Reset-Cancel
     # if no popup is expected, save
@@ -81,7 +81,7 @@ begin
     sleep 3 #without this sleep, step 5 will fail
     Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
-    puts "  snmp agent  = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_v1v2)
+    puts "  snmp agent  = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_en)
     g.save.click_no_wait
     g.jsClick('Windows Internet Explorer', 'OK')
   
