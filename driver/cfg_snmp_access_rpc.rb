@@ -108,8 +108,7 @@ begin
   for i in 1..20
     g.access_clr(i).click
   end
-  g.save.click_no_wait
-  g.jsClick('Windows Internet Explorer', 'OK')
+  g.save.click
 
 
   row = 1
@@ -138,7 +137,7 @@ begin
     puts "Save Flag = #{save_flag}"
       if save_flag == "S"
         g.save.click
-        g.jsClick('Windows Internet Explorer', 'OK')
+        #g.jsClick('Windows Internet Explorer', 'OK')
       end
     end
     
@@ -146,13 +145,12 @@ begin
       #read SNMP Access textboxes value
       sleep 3
       Watir::Waiter.wait_until(5) { g.edit.exists?}
-      g.edit.click_no_wait
+      g.edit.click
       strt_row = row - 19
       puts "Start row = #{strt_row}"
       puts "End row = #{row}"
       row_fill(g,ws,strt_row)
-      g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.save.click
     end
       wb.Save
 
