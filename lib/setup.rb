@@ -112,12 +112,29 @@ module  Setup
     nav.click
   end
 
-  
+
+   def systemos
+    lang = `systeminfo`
+    if lang =~ /en-us*/
+      @@os          = "English"
+      @@titl          = "Connect to "
+      @@ok       ="OK"
+      @@cancel    = "Cancel"
+    elsif lang =~ /zh-cn*/
+      @@os           = "Chinese"
+      @@titl           = "连接到 "
+      @@ok        ="确定"
+      @@cancel      = "取消"
+    end
+    puts "This OS is #{@@os}"
+  end
+
   #    - thread based method to login to web page
   #    - acknowledge security alert
   #    - uses standard .click as opposed to .click_no_wait
   def login(site,user,pswd)
-    conn_to = 'Connect to '+ site
+    
+    conn_to = @@titl + site
     Thread.new{
       thread_cnt = Thread.list.size
       sleep 1 #This sleep is critical, timing may need to be adjusted
@@ -126,7 +143,7 @@ module  Setup
       Watir.autoit.Send(user)
       Watir.autoit.Send('{TAB}')
       Watir.autoit.Send(pswd)
-      popup('Windows Internet Explorer','OK') #launch thread for alert popup
+      popup('Windows Internet Explorer',@@ok) #launch thread for alert popup
       Watir.autoit.Send('{ENTER}')
     }
   end
@@ -143,6 +160,7 @@ module  Setup
   #    - collects support page table:
  
   def support(xl)
+    systemos      #Determine whether the OS is Chinese or English
     puts "  Collect Support page info"
     supp.click
     sleep 1
