@@ -42,6 +42,7 @@ module  Setup
       excel = xls_timestamp(base_xl,'ind') # independent, start new excel instance
       open_ie(excel[1][2])
       support(excel[0])
+      ver_info(excel[0])
     end
     return excel
   end
@@ -179,6 +180,43 @@ module  Setup
       ws.range("A:B").Rows.Autofit
       ws.range("A:B").Columns.Autofit
     end
+
+  def ver_info(xl)
+    version =[ ] #Array used to put the version we collect
+    wb,ws = xl[1,2]
+    row = 33
+
+    #collect the Ruby version
+    puts "  Collect the Ruby version"
+    r_version = `ruby -v` #get the Ruby version
+    puts "  This Ruby version is #{r_version}"
+    version << ["Ruby version","#{r_version}"]
+
+    #collect the Watir version
+    puts "  Collect the Watir version"
+    w_version = `ruby -e 'require "watir";puts Watir::IE::VERSION'`
+    puts "  This Watir version is #{w_version}"
+    version << ["Watir version","#{w_version}"]
+
+    #collect the IE version
+    puts "  Collect the IE version"
+    temp =  `reg query \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer\" \/v version"`
+    v_version = /version\s*[A-Z_]+\s*([0-9.]*)/.match(temp)
+    puts "  This IE version is #{v_version[1]} "
+    version << ["IE version","#{v_version[1]}"]
+    
+    #write the version in ss
+    version.each{|x|
+      ver = ws.range("A#{(row)}:B#{(row)}") #add version info to ss
+      ver.value = x
+      row += 1
+      ver.Interior['ColorIndex'] = 43  # change background color
+      ver.Borders.ColorIndex = 1        # add border
+    
+    }
+    ws.range("A:B").ColumnWidth = 255 #255 is the maximum column width
+    ws.range("A:B").Rows.Autofit
+    ws.range("A:B").Columns.Autofit
     wb.Save
   end
 
