@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the Configure SMS link on the left side of window
@@ -60,8 +60,8 @@ begin
   row = 1
   fail = 0
   while(row <= rows)
-  row +=1
   puts "Test step #{row}"
+  row +=1 # add 1 to row as execution starts at drvr_ss row 2
     begin
     puts"Start of Normal loop"
     # add 1 to row as execution starts at drvr_ss row 2
