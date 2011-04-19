@@ -176,10 +176,16 @@ module  Setup
         #ws.range("A#{row}:B#{row}").Columns.Autofit
         row+=1
       end
-      ws.range("A:B").ColumnWidth = 255 #255 is the maximum column width
-      ws.range("A:B").Rows.Autofit
-      ws.range("A:B").Columns.Autofit
     end
+    os = ws.range("A#{(row)}:B#{(row)}") #add system os info to ss
+    os.value = ["Operating System Language","#{@@os}"]
+    os.Interior['ColorIndex'] = 43  # change background color
+    os.Borders.ColorIndex = 1        # add border
+    ws.range("A:B").ColumnWidth = 255 #255 is the maximum column width
+    ws.range("A:B").Rows.Autofit
+    ws.range("A:B").Columns.Autofit
+    wb.Save
+  end
 
   def ver_info(xl)
     version =[ ] #Array used to put the version we collect
