@@ -49,7 +49,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click 
   $ie.maximize
   #Click the Users on the left side of widow
@@ -61,7 +61,7 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 1
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
+    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
     
     # Write Users Admin textboxes
@@ -90,7 +90,7 @@ begin
  
     #read Admin Username,Password Reenter Password value
     sleep 1
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
+    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
     
     ws.Range("bc#{row}")['Value'] = g.admin_name.value   

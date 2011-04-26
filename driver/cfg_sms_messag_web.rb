@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the Configure SMS link on the left side of window
@@ -66,7 +66,7 @@ begin
     puts"Start of Normal loop"
     # add 1 to row as execution starts at drvr_ss row 2
     sleep 3
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
+    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
    
     # Write SMS fields
@@ -109,7 +109,7 @@ begin
  
     #read SMS all field values
     
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
+    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
     
    #Read SMS from and Emai to values

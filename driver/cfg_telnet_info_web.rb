@@ -62,7 +62,7 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
     sleep 3
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
+    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
 
     # write telnet checkbox value
@@ -80,7 +80,7 @@ begin
 
     #read email and sms Checkbox value
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
+    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
     puts "telnet ="+ws.Range("bc#{row}")['Value'] = g.checkbox(g.telnet1) 
     g.save.click_no_wait
