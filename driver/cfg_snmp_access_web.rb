@@ -108,7 +108,8 @@ begin
   for i in 1..20
     g.access_clr(i).click
   end
-  g.save.click
+  g.save.click_no_wait
+  g.jsClick('Windows Internet Explorer', 'OK')
 
 
   row = 1
@@ -136,8 +137,8 @@ begin
     else
     puts "Save Flag = #{save_flag}"
       if save_flag == "S"
-        g.save.click
-        #g.jsClick('Windows Internet Explorer', 'OK')
+        g.save.click_no_wait
+        g.jsClick('Windows Internet Explorer', 'OK')
       end
     end
     
@@ -150,7 +151,8 @@ begin
       puts "Start row = #{strt_row}"
       puts "End row = #{row}"
       row_fill(g,ws,strt_row)
-      g.save.click
+      g.save.click_no_wait
+      g.jsClick('Windows Internet Explorer', 'OK')
     end
       wb.Save
 
