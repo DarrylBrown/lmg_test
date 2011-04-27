@@ -58,7 +58,7 @@ def access_fill(g,input1)
    input1.each do|input|
       p input # show each row of input data
       i = input[4].to_i
-      g.access_addr(i).set input[0]
+      g.access_addr(i).set input[0].to_s
       if input[1].to_i == 1
         g.access_type((i),'1').set
       else
@@ -101,7 +101,7 @@ begin
   $ie.maximize  
   #Click the Configure SNMP Access link on the left side of window
   #Login if not called from controller
-  g.logn_chk(g.access,excel[1])
+  g.logn_chk(g.v1access,excel[1])
   
   #Clear All SNMP Access textboxes
   g.edit.click
