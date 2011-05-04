@@ -43,6 +43,7 @@ module  Setup
       open_ie(excel[1][2])
       support(excel[0])
       ver_info(excel[0])
+   
     end
     return excel
   end
@@ -59,7 +60,7 @@ module  Setup
       new_ss1 = new_ss.sub('controller','result')
       xl = new_xls(s_s,1) #open base controller ss with new excel session
     elsif new_ss.include? "driver"
-      new_ss1 = new_ss.sub('driver','result')
+      new_ss1 = new_ss.sub(/driver\\.+\\/,'result\\')
       if (type.to_s == 'ind') # driver was launched independently
         xl = new_xls(s_s,1) #open base driver ss with new excel session
       else # driver was launched by controller

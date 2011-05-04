@@ -56,6 +56,7 @@ begin
   ctrl_ss,rows,site,name,pswd = excel[1]
 
   g.config.click    # login now so drivers won't have to
+
   g.login(site,name,pswd)
   g.equipinfo.click
  
@@ -67,10 +68,10 @@ begin
     puts "run_flag = #{run_flag}"
     if run_flag == true
       print" Executing Driver script #{r_ow} -- "
-      path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
-      drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver 
+      path = File.dirname(__FILE__).sub('controller','driver/web/') # driver path
+      drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver
       t = Time.now.to_a.reverse[5..9].to_s
-      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
+      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver/web','result')
       run_drvr = system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver 
       puts "Drvr Status = #{run_drvr}"
       g.conn_act_xls # connect to controller spreadsheet 

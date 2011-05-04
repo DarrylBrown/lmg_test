@@ -14,6 +14,11 @@ Lmg_test\ruby\dd.mm.yyyy  [Core Framework]
     |__lib
     |__controller
     |__driver
+    |    |__telnet
+    |    |__web
+    |    |__webx
+    |    |__rpc
+    |
     |__result
 
 

@@ -67,10 +67,10 @@ begin
     puts "run_flag = #{run_flag}"
     if run_flag == true
       print" Executing Driver script #{r_ow} -- "
-      path = File.dirname(__FILE__).sub('controller','driver/') # driver path 
+      path = File.dirname(__FILE__).sub('controller','driver/rpc/') # driver path 
       drvr = path << (ws.Range("j#{row}")['Value'].to_s) #concat path and driver 
       t = Time.now.to_a.reverse[5..9].to_s
-      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
+      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver/rpc','result')
       run_drvr = system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver 
       puts "Drvr Status = #{run_drvr}"
       g.conn_act_xls # connect to controller spreadsheet 
