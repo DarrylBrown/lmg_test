@@ -68,20 +68,19 @@ begin
     # write Authentication and LGP checkbox value
     if ws.Range("k#{row}")['Value'] == 'set' then g.snmp_auth.set else g.snmp_auth.clear end
 	
-	if ws.Range("l#{row}")['Value'] == 'set' 
-          g.upsmib.set
-          g.upstraps.set(ws.Range("m#{row}")['Value'])
-          else
-          g.upstraps.clear 
+    if ws.Range("l#{row}")['Value'] == 'set'
+      g.upsmib.set
+      if ws.Range("m#{row}")['Value'] == 'set'then g.upstraps.set else g.upstraps.clear end
+    else
+      g.upsmib.clear
     end
 	
- 	if ws.Range("n#{row}")['Value'] == 'set' 
-          g.lgpmib.set
-          g.lgptraps.set(ws.Range("o#{row}")['Value'])
-		  g.sysnotify.set(ws.Range("p#{row}")['Value'])
-          else
-          g.lgptraps.clear
-		  g.sysnotify.clear
+    if ws.Range("n#{row}")['Value'] == 'set'
+      g.lgpmib.set
+      if ws.Range("o#{row}")['Value'] == 'set' then g.lgptraps.set else g.lgptraps.clear end
+      if ws.Range("p#{row}")['Value'] == 'set' then g.sysnotify.set else g.sysnotify.clear end
+    else
+      g.lgpmib.clear
     end
 	   
     HeartBeat = ((ws.Range("q#{row}")['Value']).to_i).to_s
@@ -106,23 +105,22 @@ begin
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_auth)
 	
     if g.checkbox(g.upsmib) == 'set'
-		ws.Range("bd#{row}")['Value'] = 'set'
-		ws.Range("be#{row}")['Value'] = 'set'
+      ws.Range("bd#{row}")['Value'] = 'set'
+      ws.Range("be#{row}")['Value'] = g.checkbox(g.upstraps)
 		else
-          ws.Range("be#{row}")['Value'] = 'clear'
-        end
+      ws.Range("bd#{row}")['Value'] = 'clear'
+    end
 	
-	if g.checkbox(g.lgpmib) == 'set'
-		ws.Range("bf#{row}")['Value'] = 'set'
-		ws.Range("bg#{row}")['Value'] = 'set'
-		ws.Range("bh#{row}")['Value'] = 'set'
+    if g.checkbox(g.lgpmib) == 'set'
+      ws.Range("bf#{row}")['Value'] = 'set'
+      ws.Range("bg#{row}")['Value'] = g.checkbox(g.lgptraps)
+      ws.Range("bh#{row}")['Value'] = g.checkbox(g.sysnotify)
 		
 		else
-         ws.Range("bg#{row}")['Value'] = 'clear'
-		 ws.Range("bh#{row}")['Value'] = 'clear'
-        end
+      ws.Range("bf#{row}")['Value'] = 'clear'
+    end
 	
-	 ws.Range("bi#{row}")['Value'] = g.snmp_hb.value
+    ws.Range("bi#{row}")['Value'] = g.snmp_hb.value
     
     g.save.click_no_wait
     g.jsClick('Windows Internet Explorer', 'OK')
@@ -131,7 +129,7 @@ begin
   end
 
   f = Time.now  #finish time
-#Capture error if any in the script  
+  #Capture error if any in the script
 rescue Exception => e
   f = Time.now  #finish time 
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
