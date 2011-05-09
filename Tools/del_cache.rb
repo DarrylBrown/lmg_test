@@ -193,6 +193,6 @@ end
 
 if __FILE__ == $0
     n = main
-    # print "Deleted #{n} items\n"
+    print "Deleted #{n} items\n"
 end
 
