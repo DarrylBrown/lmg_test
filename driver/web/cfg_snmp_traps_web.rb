@@ -42,30 +42,34 @@ require 'generic'
 require 'watir/process' 
 
 def traps_input(row,ws)
-      # Read the input data from the spreadsheet into a multidimensional array
-      # Where each sub-array represents one row of data
-      #     1) network name     - 'k'
-      #     2) Traps Port      -  'l'
-      #     3) community name   - 'm'
-	  #     4) Heart Beat       - 'n' 
-      #     4) save flag        - 'o'  # ** Not used
-      #     5) input row        - 'p'  # ** Not used
-      #     6) popup expected   - 'af' # ** Not in the arrray currently **
-      #
-      input1 = ws.Range("k#{row}:p#{row+19}")['Value']
-    end
+  # Read the input data from the spreadsheet into a multidimensional array
+  # Where each sub-array represents one row of data
+  #     1) network name     - 'k'
+  #     2) Traps Port      -  'l'
+  #     3) community name   - 'm'
+  #     4) Heart Beat       - 'n'
+  #     4) save flag        - 'o'  # ** Not used
+  #     5) input row        - 'p'  # ** Not used
+  #     6) popup expected   - 'af' # ** Not in the arrray currently **
+  #
+  input1 = ws.Range("k#{row}:p#{row+19}")['Value']
+end
 	
 def traps_fill(g,input1)
-   #
-   # Write data to all 20 rows of the traps table
-   input1.each do|input|
-      p input # show each row of input data
-      i = input[5].to_i
+  #
+  # Write data to all 20 rows of the traps table
+  input1.each do|input|
+    p input # show each row of input data
+    i = input[5].to_i
 	  p i
-      g.trap_addr(i).set input[0].to_s
-      g.trap_port(i).set input[1].to_s.delete(".0")
+    g.trap_addr(i).set input[0].to_s
+    g.trap_port(i).set input[1].to_s.delete(".0")
 	  g.trap_com(i).set input[2].to_s
-      g.trap_hb(i).set input[3]
+    if input[3] == 'set'
+      g.trap_hb(i).set
+	  else
+      g.trap_hb(i).clear
+	  end
   end
 end	
 	
@@ -76,11 +80,11 @@ def row_fill(g,ws,strt_row)
     # puts "#{g.trap_addr(i).value}"
     ws.Range("bc#{strt_row}")['Value'] = g.trap_addr(i).value
     puts "#{g.trap_port(i).value}"
-	ws.Range("bd#{strt_row}")['Value'] = g.trap_port(i).value
-	ws.Range("be#{strt_row}")['Value'] = g.trap_com(i).value
+    ws.Range("bd#{strt_row}")['Value'] = g.trap_port(i).value
+    ws.Range("be#{strt_row}")['Value'] = g.trap_com(i).value
     puts "#{g.trap_com(i).value}"
-	ws.Range("bf#{strt_row}")['Value'] = g.checkbox(g.trap_hb(i))
-	puts "#{g.checkbox(g.trap_hb(i))}"
+    ws.Range("bf#{strt_row}")['Value'] = g.checkbox(g.trap_hb(i))
+    puts "#{g.checkbox(g.trap_hb(i))}"
     strt_row = strt_row + 1  
   end
 end
@@ -101,13 +105,13 @@ begin
   $ie.maximize  
   #Click the SNMP Traps link on the left side of widow
   #Login if not called from controller
-  g.logn_chk(g.traps,excel[1])
+  g.logn_chk(g.v1traps,excel[1])
 
   #Clear All SNMP Traps textboxes
   g.edit.click
   for i in 1..20
-  g.trap_clr(i).click
-  g.trap_hb(i).clear
+    g.trap_clr(i).click
+    g.trap_hb(i).clear
   end
   g.save.click_no_wait
   g.jsClick('Windows Internet Explorer', 'OK')
@@ -120,13 +124,13 @@ begin
     Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click   
 	
-	input1 = traps_input(row,ws)
+    input1 = traps_input(row,ws)
     p input1 # show array with 20 rows of input data (for debug)
     p'-----------------'
 	
-	# Write data to all 20 rows of the access table
+    # Write data to all 20 rows of the access table
     traps_fill(g,input1)
-	row += 19
+    row += 19
 	
     # Write SNMP Traps textboxes
     save_flag = ws.Range("o#{row}")['Value'].to_s
@@ -142,8 +146,8 @@ begin
       end
     end
 
-if save_flag == "S"
-  #read SNMP Traps textboxes value
+    if save_flag == "S"
+      #read SNMP Traps textboxes value
       sleep 3
       Watir::Wait.until(5) {g.edit.exists?}
       g.edit.click
@@ -155,12 +159,12 @@ if save_flag == "S"
       g.save.click_no_wait
       g.jsClick('Windows Internet Explorer', 'OK')
 	  
-  end
+    end
     wb.Save
   end
 
- f = Time.now  #finish time
-#Capture error if any in the script  
+  f = Time.now  #finish time
+  #Capture error if any in the script
 rescue Exception => e
   f = Time.now  #finish time 
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
