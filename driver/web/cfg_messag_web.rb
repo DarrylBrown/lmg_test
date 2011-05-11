@@ -31,8 +31,6 @@
 
 =end
 
-#Launch the Messaging ruby script
-#Add library file to the path
 $:.unshift File.dirname(__FILE__).chomp('driver/web')<<'lib' # add library to path
 s = Time.now
 require 'generic'
@@ -60,18 +58,11 @@ begin
   while(row <= rows)
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
-    sleep 1
-    tries = 0
-    until (g.edit.exists?) do
-      sleep 0.5
-      tries += 1
-    end
-    #Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 
     # write email and sms checkbox value
-    if ws.Range("k#{row}")['Value'] == 'set' then g.email_msg.set else g.email_msg.clear end
-    if ws.Range("l#{row}")['Value'] == 'set' then g.sms_msg.set else g.sms_msg.clear end
+    g.email_msg.send ws.Range("k#{row}")['Value']
+    g.sms_msg.send ws.Range("l#{row}")['Value']
 
     # if a popup is expected, handle with Reset-OK or Reset-Cancel
     # if no popup is expected, save
@@ -84,12 +75,6 @@ begin
     end
 
     #read email and sms Checkbox value
-    sleep 1 #without this sleep, step 5 will fail
-    until (g.edit.exists?) do
-      sleep 0.5
-      tries += 1
-    end
-    #Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.email_msg)
     puts " sms   = " + ws.Range("bd#{row}")['Value'] = g.checkbox(g.sms_msg)
