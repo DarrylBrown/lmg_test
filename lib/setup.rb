@@ -34,6 +34,7 @@ module  Setup
   #    - open IE or attach to existing IE session
   #    - populate the spreadsheet with web support page info
   def setup(file)
+    systemos      #Determine whether the OS is Chinese or English
     base_xl = (file).gsub('/','\\').chomp('rb')<<'xls'
     if(ARGV.length != 0)          # called from controller
       excel = xls_timestamp(base_xl) # called ,connect to existing excel instance
@@ -93,7 +94,7 @@ module  Setup
     puts "\n    **Open IE **\n"
     $ie = Watir::IE.new
     $ie.goto(site)
-   end
+  end
 
 
   #
@@ -115,7 +116,7 @@ module  Setup
   end
 
 
-   def systemos
+  def systemos
     lang = `systeminfo`
     if lang =~ /en-us*/
       @@os          = "English"
@@ -162,7 +163,6 @@ module  Setup
   #    - collects support page table:
  
   def support(xl)
-    systemos      #Determine whether the OS is Chinese or English
     puts "  Collect Support page info"
     supp.click
     sleep 1
@@ -201,7 +201,7 @@ module  Setup
 
     #collect the Watir version
     puts "  Collect the Watir version"
-    w_version = `ruby -e 'require "watir";puts Watir::IE::VERSION'`
+    w_version = `ruby -e 'require "watir";puts Watir::VERSION'`
     puts "  This Watir version is #{w_version}"
     version << ["Watir version","#{w_version}"]
 
