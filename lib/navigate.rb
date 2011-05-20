@@ -84,13 +84,11 @@ module Nav
 
   # - Equipment / Agent Information navigation link.
   def equipinfo
-    obj_retry("link") do
       if nav.link(:text, 'Equipment Information').exists?
         nav.link(:text, 'Equipment Information')
       else
         nav.link(:text, 'Agent Information')
       end
-    end
   end
   # - Factory Defaults configuration link
   def factdef; nav.link(:text, 'Factory Defaults'); end
