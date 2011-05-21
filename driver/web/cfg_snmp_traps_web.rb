@@ -114,7 +114,7 @@ begin
     g.trap_hb(i).clear
   end
   g.save.click_no_wait
-  g.jsClick('Windows Internet Explorer', 'OK')
+  g.jsClick('OK')
   
   row = 1
   while(row <= rows)
@@ -142,7 +142,7 @@ begin
       puts "Save Flag = #{save_flag}"
       if save_flag == "S"
         g.save.click_no_wait
-        g.jsClick('Windows Internet Explorer', 'OK')
+        g.jsClick('OK')
       end
     end
 
@@ -157,7 +157,7 @@ begin
       puts "End row = #{end_row}"
       row_fill(g,ws,strt_row)
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
 	  
     end
     wb.Save

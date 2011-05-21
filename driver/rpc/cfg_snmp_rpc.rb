@@ -88,7 +88,7 @@ begin
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else
       g.save.click
-      #g.jsClick('Windows Internet Explorer', 'OK')
+      #g.jsClick('OK')
     end
 
     #read Traps Checkbox value
@@ -110,7 +110,7 @@ begin
 	 ws.Range("bg#{row}")['Value'] = g.snmp_hb.value
     
     g.save.click
-    #g.jsClick('Windows Internet Explorer', 'OK')
+    #g.jsClick('OK')
 
     wb.Save
   end

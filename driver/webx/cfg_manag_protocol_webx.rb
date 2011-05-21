@@ -74,7 +74,7 @@ begin
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
 
     #read - SNMP Agent Checkbox
@@ -83,7 +83,7 @@ begin
     g.edit.click
     puts "  snmp agent  = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_enable)
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
   
     wb.Save
   end

@@ -137,7 +137,7 @@ begin
       puts "Save Flag = #{save_flag}"
       if save_flag == "S"
         g.save.click
-        #g.jsClick('Windows Internet Explorer', 'OK')
+        #g.jsClick('OK')
       end
     end
 

@@ -71,7 +71,7 @@ begin
     ws.Range("be#{row}")['Value'] = g.user_pswd2.value
     
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
     wb.Save
   end
 

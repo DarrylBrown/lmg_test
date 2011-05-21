@@ -100,7 +100,7 @@ begin
     #If reset Cancel, do not save
     if (pop == "no")
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
  
     #read SNTP Configuration  field values
@@ -129,7 +129,7 @@ begin
     ws.Range("be#{row}")['Value'] = t_zone
     
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
     wb.Save
   end
 

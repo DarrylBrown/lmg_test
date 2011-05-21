@@ -73,7 +73,7 @@ begin
 
     #If popup, handle with reset OK or reset Cancel to continue
     if (pop == "msg")
-      popup_txt  = g.jsClick('Windows Internet Explorer', 'OK')
+      popup_txt  = g.jsClick('OK')
       puts "Pop-Up text is #{popup_txt}"
       ws.Range("bk#{row}")['Value'] = popup_txt
     end

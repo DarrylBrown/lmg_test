@@ -94,7 +94,7 @@ begin
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
 
     #read email and sms Checkbox value
@@ -123,7 +123,7 @@ begin
     ws.Range("bi#{row}")['Value'] = g.snmp_hb.value
     
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
 
     wb.Save
   end

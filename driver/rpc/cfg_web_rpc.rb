@@ -106,7 +106,7 @@ begin
     #If reset Cancel, do not save
     if (pop == "no")
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
  
     #read Configure Web field values
@@ -138,7 +138,7 @@ begin
     #end
     
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
     wb.Save
   end
 

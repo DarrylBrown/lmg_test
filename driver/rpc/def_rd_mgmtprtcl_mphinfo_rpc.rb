@@ -69,7 +69,7 @@ begin
     puts " Snmp Agent = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_en)
     puts " Velocity V4.Server  = " + ws.Range("bd#{row}")['Value'] = g.checkbox(g.v4_en)
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
 
     wb.Save
   end

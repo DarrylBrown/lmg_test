@@ -127,7 +127,7 @@ begin
  #If reset Cancel, do not save
     if (pop == "no")
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
  
     #read Email and SMS Checkbox value
@@ -173,7 +173,7 @@ begin
     end
     
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
     wb.Save
     
     rescue
@@ -196,7 +196,7 @@ begin
     
     begin
       g.custmsg.click_no_wait
-      g.jsClick( $ie, "OK")
+      g.jsClick('OK')
       puts"**********email popup ***"
     rescue
       puts"**********return-1 to normal loop***"

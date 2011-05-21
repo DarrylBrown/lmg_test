@@ -90,7 +90,7 @@ begin
     ws.Range("be#{row}")['Value'] = g.tftp_file.value
     
     g.save.click
-    #g.jsClick('Windows Internet Explorer', 'OK')
+    #g.jsClick('OK')
     wb.Save
   end
 

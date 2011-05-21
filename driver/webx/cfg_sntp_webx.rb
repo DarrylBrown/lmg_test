@@ -109,7 +109,7 @@ begin
       ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
       ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("OK")
     when /no/i then
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     else raise "Invalid popup encountered!"
     end
 

@@ -68,7 +68,7 @@ begin
 	puts "#{ws.Range("bd#{row}")['Value']}"
    	sleep 3
 	#g.dns_test.click_no_wait
-	#g.jsClick('Windows Internet Explorer', 'OK')
+	#g.jsClick('OK')
     wb.Save
   end
 

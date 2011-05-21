@@ -104,7 +104,7 @@ begin
     #If reset Cancel, do not save
     if (pop == "no")
       g.save.click_no_wait
-     # g.jsClick('Windows Internet Explorer', 'OK')
+     # g.jsClick('OK')
     end
  
     #read SMS all field values
@@ -143,7 +143,7 @@ begin
     ws.Range("bh#{row}")['Value'] = g.sms_port.value
     
     g.save.click_no_wait
-    #g.jsClick('Windows Internet Explorer', 'OK')
+    #g.jsClick('OK')
     wb.Save
     
     rescue
@@ -166,7 +166,7 @@ begin
     
     begin
       g.sms.click_no_wait
-      g.jsClick( $ie, "OK")
+      g.jsClick('OK')
       puts"**********sms popup ***"
     rescue
       puts"**********return-1 to normal loop***"

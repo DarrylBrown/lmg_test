@@ -80,7 +80,7 @@ begin
     ws.Range("bg#{row}")['Value'] = g.dns_suf.value
 
 	g.save.click_no_wait
-    #g.jsClick('Windows Internet Explorer', 'OK')
+    #g.jsClick('OK')
     wb.Save
   end
 

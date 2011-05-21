@@ -94,13 +94,13 @@ begin
     if (pop == "can")
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
 
     #If reset Cancel, do not save
     if (pop == "no")
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
  
     #read Network Settings  field values
@@ -123,7 +123,7 @@ begin
     end  
   
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
     wb.Save
   end
 

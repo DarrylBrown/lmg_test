@@ -123,9 +123,9 @@ class Generic
   end
 
 
-  #  - function jsClick- Handle popup and return pop up text if 'rtxt' is true
+  #  - Handle popup and return pop up text if 'rtxt' is true
   #  - user_input is used for firmware update file dialogue box
-  def jsClick( a, button, user_inp = nil,rtxt = nil)
+  def jsClick(button, user_inp = nil,rtxt = nil)
     if button=="OK"||button=="È·¶¨"
       button=@@ok
     else
@@ -133,14 +133,11 @@ class Generic
     end
     wait = 70
     hwnd1 = $ie.enabled_popup(wait) # wait up to 60 seconds for a popup to appear
-
     if (hwnd1)
       w = WinClicker.new
       if (rtxt)
         popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
-
       end
-
       if (user_inp)
         w.setTextValueForFileNameField(hwnd1, "#{user_inp}")
       end
@@ -157,15 +154,15 @@ class Generic
   #  - reset Cancel And reset OK, return text in popup
   def invChar( a,pop_exp,user_inp = nil)
     save.click_no_wait
-    poptxt = jsClick( $ie,@@ok ,user_inp = nil,"rtxt")
+    poptxt = jsClick(@@ok ,user_inp = nil,"rtxt")
 
     if (pop_exp == "can")
       reset.click_no_wait
-      jsClick( $ie,@@cancel ,user_inp = nil)
+      jsClick(@@cancel ,user_inp = nil)
       edit.click
     end
     reset.click_no_wait
-    jsClick( $ie,@@ok ,user_inp = nil)
+    jsClick(@@ok ,user_inp = nil)
     return poptxt
   end
 
@@ -177,10 +174,10 @@ class Generic
   def res_can(pop_exp)
     if (pop_exp == "res")
       reset.click_no_wait
-      jsClick( $ie,@@ok,user_inp = nil,"rtxt")
+      jsClick(@@ok,user_inp = nil,"rtxt")
     elsif (pop_exp == "can")
       reset.click_no_wait
-      jsClick( $ie,@@cancel,user_inp = nil,"rtxt")
+      jsClick(@@cancel,user_inp = nil,"rtxt")
     end
   end
 
@@ -189,10 +186,10 @@ class Generic
   def res_factory(pop_exp)
     if (pop_exp == "res")
       restart1.click_no_wait
-      jsClick( $ie,@@ok,user_inp = nil,"rtxt")
+      jsClick(@@ok,user_inp = nil,"rtxt")
     elsif (pop_exp == "can")
       restart1.click_no_wait
-      jsClick( $ie,@@cancel,user_inp = nil,"rtxt")
+      jsClick(@@cancel,user_inp = nil,"rtxt")
     end
   end
 

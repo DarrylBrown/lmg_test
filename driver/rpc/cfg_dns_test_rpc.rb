@@ -84,7 +84,7 @@ begin
 	puts "  pop_up value = #{pop}"
    if (pop == "msg")
     g.dns_test.click_no_wait  
-    popup_txt  =  g.jsClick( $ie,"OK",user_inp = nil,"rtxt")
+    popup_txt  =  g.jsClick('OK',user_inp = nil,"rtxt")
 	  puts "Pop-Up text is #{popup_txt}"
     ws.Range("bk#{row}")['Value'] = popup_txt
    else
@@ -98,7 +98,7 @@ begin
 	puts "#{ws.Range("bd#{row}")['Value']}"
    	sleep 3
 	#g.dns_test.click_no_wait
-	#g.jsClick('Windows Internet Explorer', 'OK')
+	#g.jsClick('OK')
     wb.Save
   end
 

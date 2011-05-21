@@ -100,7 +100,7 @@ begin
     #If reset Cancel, do not save
     if (pop == "no")
       g.save.click
-      #g.jsClick('Windows Internet Explorer', 'OK')
+      #g.jsClick('OK')
     end
  
     #read DNS Settings  field values
@@ -122,7 +122,7 @@ begin
     ws.Range("bg#{row}")['Value'] = g.dns_suf.value
 
 	  g.save.click
-    #g.jsClick('Windows Internet Explorer', 'OK')
+    #g.jsClick('OK')
     wb.Save
   end
 

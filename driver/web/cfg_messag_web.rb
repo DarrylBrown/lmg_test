@@ -48,7 +48,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the ï¿½Configureï¿½ tab
+  #Navigate to the ï¿?onfigureï¿?tab
   g.config.click 
   #Click the Messaging link in the on the left side of window
   #Login if not called from controller
@@ -71,7 +71,7 @@ begin
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else
       g.save.click_no_wait
-      g.jsClick('Windows Internet Explorer', 'OK')
+      g.jsClick('OK')
     end
 
     #read email and sms Checkbox value
@@ -79,7 +79,7 @@ begin
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.email_msg)
     puts " sms   = " + ws.Range("bd#{row}")['Value'] = g.checkbox(g.sms_msg)
     g.save.click_no_wait
-    g.jsClick('Windows Internet Explorer', 'OK')
+    g.jsClick('OK')
 
     wb.Save
   end
