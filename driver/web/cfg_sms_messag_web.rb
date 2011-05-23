@@ -49,8 +49,11 @@ begin
   wb,ws = excel[0][1,2]
   rows = excel[1][1] 
 
+  #TODO - these ss formatting commands will be move to setup method in the future
+  ws.Columns("A:B").HorizontalAlignment = 2                   # Left Align text
+  ws.Rows("2:#{rows + 1}").RowHeight = 12.75                  # Set row height
+
   $ie.speed = :zippy
-  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the Configure SMS link on the left side of window
@@ -60,124 +63,59 @@ begin
   row = 1
   fail = 0
   while(row <= rows)
-  row +=1
-  puts "Test step #{row}"
-    begin
-    puts"Start of Normal loop"
-    # add 1 to row as execution starts at drvr_ss row 2
-    sleep 3
-    Watir::Wait.until(10) {g.edit.exists?}
+    puts "Test step #{row}"
+    row +=1 # add 1 to row as execution starts at drvr_ss row 2
+  
+
+    # ***** write sms fields ****
     g.edit.click
-   
-    # Write SMS fields
-    g.sms_from.set(ws.Range("k#{row}")['Value'].to_s)
-    g.sms_to.set(ws.Range("l#{row}")['Value'].to_s)
-    puts "#{ws.Range("m#{row}")['Value'].to_s}"
-    subj_type = ws.Range("m#{row}")['Value'].to_i
-    puts "#{subj_type}"
+    g.sms_from.set(ws.Range("k#{row}")['Value'].to_s)           # From
+    g.sms_to.set(ws.Range("l#{row}")['Value'].to_s)             # To
+    subj_type = ws.Range("m#{row}")['Value'].to_i               # Subject Type
     if subj_type == 0
       g.sms_subjecttype(0).set
     else
       g.sms_subjecttype(1).set
-      g.sms_custsubj.set(ws.Range("n#{row}")['Value'].to_s)
+      g.sms_custsubj.set(ws.Range("n#{row}")['Value'].to_s)     # Custom Subject
     end
-    g.sms_srvr.set(ws.Range("o#{row}")['Value'].to_s)
-    g.sms_port.set(ws.Range("p#{row}")['Value'].to_s)  
-    
-    
-    #Is there a popup expected? 
-    pop = ws.Range("af#{row}")['Value'].to_s 
-    puts "  pop_up value = #{pop}" unless pop == 'no'
-    #sleep 1
+    g.sms_srvr.set(ws.Range("o#{row}")['Value'].to_s)           # Server
+    g.sms_port.set(ws.Range("p#{row}")['Value'].to_s)           # Port
 
-    #If popup, handle with reset OK or reset Cancel to continue
-    if (pop == "res")
-      popup_txt  = g.invChar($ie,pop,nil)
-      puts "Pop-Up text is #{popup_txt}"
-      ws.Range("bk#{row}")['Value'] = popup_txt
+    # popup expected?
+    pop = ws.Range("af#{row}")['Value'].to_s
+    if (pop == "res")                                           # Reset
+      ws.Range("bi#{row}")['Value'] = g.invChar($ie,pop,nil)    # popup text
     end
- 
-    if (pop == "can")
-      ws.Range("bk#{row}")['Value'] = g.res_can(pop)
+    if (pop == "can")                                           # Cancel
+      ws.Range("bi#{row}")['Value'] = g.res_can(pop)
+    end
+    #TODO this will need to be cleaned up. Simple reset should not use "pop" variable
+    if (pop == "reset")                                         # Reset only (no popup)
+      g.reset.click_no_wait
+      g.jsClick("OK")
+    end
+    if (pop == "no")                                            # save only if no popup
+      g.save.click
     end
 
-    #If reset Cancel, do not save
-    if (pop == "no")
-      g.save.click_no_wait
-     # g.jsClick('OK')
-    end
- 
-    #read SMS all field values
-    
-    Watir::Wait.until(10) {g.edit.exists?}
-    g.edit.click
-    
-   #Read SMS from and Emai to values
-    ws.Range("bc#{row}")['Value'] = g.sms_from.value
-    ws.Range("bd#{row}")['Value'] = g.sms_to.value
-    
-    #Read SMS Subject-Event and Subject Custom values
-    if g.sms_subjecttype(0).checked? == true
+
+     #**** read sms fields ****
+    ws.Range("bc#{row}")['Value'] = g.sms_from.value            # From
+    ws.Range("bd#{row}")['Value'] = g.sms_to.value              # To
+    if g.sms_subjecttype(0).checked? == true                    # Subject Type
       ws.Range("be#{row}")['Value'] = "0"
-    elsif g.sms_subjecttype(1).checked? == true
-      ws.Range("be#{row}")['Value'] = "1"
-      puts "Custom Subject is #{g.sms_custsubj.nil?}"
-      if g.sms_custsubj.nil? == true
-        g.sms_custsubj.set('Test')
-        ws.Range("bf#{row}")['Value'] = g.sms_custsubj.value
-      else
-        ws.Range("bf#{row}")['Value'] = g.sms_custsubj.value
-      end
-    end
-    
-    #Read SMTP Server value
-    puts "SMTP Server is #{g.sms_srvr.nil?}"
-    if g.sms_srvr.nil? == true
-      g.sms_srvr.set('142.130.2.83')
-      ws.Range("bg#{row}")['Value'] = g.sms_srvr.value
     else
-      ws.Range("bg#{row}")['Value'] = g.sms_srvr.value
+      ws.Range("be#{row}")['Value'] = "1"
+      ws.Range("bf#{row}")['Value'] = g.sms_custsubj.value      # Custom Subject
     end
-    
-    #Read Port value
-    ws.Range("bh#{row}")['Value'] = g.sms_port.value
-    
-    g.save.click_no_wait
-    #g.jsClick('OK')
-    wb.Save
-    
-    rescue
-    fail +=1
-    puts "Error - #{fail} of #{row}"
-    Watir.autoit.Send('{F5}')
-    puts"********** rescue ***"
-    sleep 2
-    
-    begin
-      sleep 5 # wait for the previous click_no_wait process to time out before starting another 
-      save.click_no_wait
-      jsClick( $ie, "OK")
-    rescue
-      puts "**********no 'save' popup in rescue***"
-    end
-    
-    g.config.click
-    puts"Clicked on Configure Tab"
-    
-    begin
-      g.sms.click_no_wait
-      g.jsClick('OK')
-      puts"**********sms popup ***"
-    rescue
-      puts"**********return-1 to normal loop***"
-    end
-    puts"**********return-2 to normal loop***"
-    row = row - 1
-    end
-  end
+    ws.Range("bg#{row}")['Value'] = g.sms_srvr.value            # Server
+    ws.Range("bh#{row}")['Value'] = g.sms_port.value            # Port
 
+    wb.Save
+  end
+    
   f = Time.now  #finish time
-#Capture error if any in the script  
+  #Capture error if any in the script
 rescue Exception => e
   f = Time.now  #finish time 
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
