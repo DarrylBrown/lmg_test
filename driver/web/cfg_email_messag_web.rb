@@ -47,11 +47,14 @@ begin
   #Collect the support page information and save it in the time stamped spreadsheet.
   excel = g.setup(__FILE__)
   wb,ws = excel[0][1,2]
-  rows = excel[1][1] 
+  rows = excel[1][1]
+
+  #TODO - these ss formatting commands will be move to setup method in the future
+  ws.Columns("A:B").HorizontalAlignment = 2                   # Left Align text
+  ws.Rows("2:#{rows + 1}").RowHeight = 12.75                  # Set row height
 
   $ie.speed = :zippy
   g.config.click
-  sleep(2)
   $ie.maximize
   #Click the Configure Email link on the left side of window
   #Login if not called from controller
@@ -60,7 +63,7 @@ begin
   row = 1
   fail = 0
   while(row <= rows)
-  puts "Test step #{row}"
+    puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
 
     
@@ -83,6 +86,11 @@ begin
     if (pop == "res")                                           # Reset                 
       ws.Range("bi#{row}")['Value'] = g.invChar($ie,pop,nil)    # popup text
     end
+    #TODO this will need to be cleaned up. Simple reset should not use "pop" variable
+    if (pop == "reset")                                         # Reset only (no popup)
+      g.reset.click_no_wait
+      g.jsClick("OK")
+    end
     if (pop == "can")                                           # Cancel
       ws.Range("bi#{row}")['Value'] = g.res_can(pop)
     end
@@ -98,7 +106,7 @@ begin
       ws.Range("be#{row}")['Value'] = "0"
     else
       ws.Range("be#{row}")['Value'] = "1"
-      ws.Range("bf#{row}")['Value'] = g.email_custsubj.value      # Custom Subject
+      ws.Range("bf#{row}")['Value'] = g.email_custsubj.value    # Custom Subject
     end  
     ws.Range("bg#{row}")['Value'] = g.email_srvr.value          # Server
     ws.Range("bh#{row}")['Value'] = g.email_port.value          # Port
