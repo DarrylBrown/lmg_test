@@ -50,7 +50,6 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configureï¿?tab
   g.config.click
   sleep(2)
   $ie.maximize
@@ -63,118 +62,48 @@ begin
   while(row <= rows)
   puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
-    begin
-    puts"Start of Normal loop"
-    sleep 3
-    Watir::Wait.until(10) {g.edit.exists?}
+
+    
+    # ***** write email fields ****
     g.edit.click
-   
-    # Write email fields
-    g.email_from.set(ws.Range("k#{row}")['Value'].to_s)
-    g.email_to.set(ws.Range("l#{row}")['Value'].to_s)
-    puts "#{ws.Range("m#{row}")['Value'].to_s}"
-    subj_type = ws.Range("m#{row}")['Value'].to_i
-    puts "#{subj_type}"
+    g.email_from.set(ws.Range("k#{row}")['Value'].to_s)         # From
+    g.email_to.set(ws.Range("l#{row}")['Value'].to_s)           # To
+    subj_type = ws.Range("m#{row}")['Value'].to_i               # Subject Type
     if subj_type == 0
       g.email_subjectttype(0).set
     else
       g.email_subjectttype(1).set
-      g.email_custsubj.set(ws.Range("n#{row}")['Value'].to_s)
+      g.email_custsubj.set(ws.Range("n#{row}")['Value'].to_s)   # Custom Subject
     end
-    g.email_srvr.set(ws.Range("o#{row}")['Value'].to_s)
-    g.email_port.set(ws.Range("p#{row}")['Value'].to_s)  
-    
-    
-    #Is there a popup expected? 
-    pop = ws.Range("af#{row}")['Value'].to_s 
-    puts "  pop_up value = #{pop}" unless pop == 'no'
-    #sleep 1
+    g.email_srvr.set(ws.Range("o#{row}")['Value'].to_s)         # Server
+    g.email_port.set(ws.Range("p#{row}")['Value'].to_s)         # Port
 
-    #If popup, handle with reset OK or reset Cancel to continue
-    if (pop == "res")
-      popup_txt  = g.invChar($ie,pop,nil)
-      puts "Pop-Up text is #{popup_txt}"
-      ws.Range("bk#{row}")['Value'] = popup_txt
+    # popup expected?
+    pop = ws.Range("af#{row}")['Value'].to_s                    
+    if (pop == "res")                                           # Reset                 
+      ws.Range("bi#{row}")['Value'] = g.invChar($ie,pop,nil)    # popup text
     end
- 
-    if (pop == "can")
-      ws.Range("bk#{row}")['Value'] = g.res_can(pop)
+    if (pop == "can")                                           # Cancel
+      ws.Range("bi#{row}")['Value'] = g.res_can(pop)
+    end
+    if (pop == "no")                                            # save only if no popup
+      g.save.click
     end
 
-    #If reset Cancel, do not save
-    if (pop == "no")
-      g.save.click_no_wait
-     # g.jsClick('OK')
-    end
- 
-    #read Email all field values
-    
-    Watir::Wait.until(10) {g.edit.exists?}
-    g.edit.click
-    
-   #Read Email from and Emai to values
-    ws.Range("bc#{row}")['Value'] = g.email_from.value
-    ws.Range("bd#{row}")['Value'] = g.email_to.value
-    
-    #Read Email Subject-Event and Subject Custom values
-    if g.email_subjectttype(0).checked? == true
+
+    #**** read email fields ****
+    ws.Range("bc#{row}")['Value'] = g.email_from.value          # From
+    ws.Range("bd#{row}")['Value'] = g.email_to.value            # To
+    if g.email_subjectttype(0).checked? == true                 # Subject Type
       ws.Range("be#{row}")['Value'] = "0"
-    elsif g.email_subjectttype(1).checked? == true
-      ws.Range("be#{row}")['Value'] = "1"
-      puts "Custom Subject is #{g.email_custsubj.nil?}"
-      if g.email_custsubj.nil? == true
-        g.email_custsubj.set('Test')
-        ws.Range("bf#{row}")['Value'] = g.email_custsubj.value
-      else
-        ws.Range("bf#{row}")['Value'] = g.email_custsubj.value
-      end
-    end
-    
-    #Read SMTP Server value
-    puts "SMTP Server is #{g.email_srvr.nil?}"
-    if g.email_srvr.nil? == true
-      g.email_srvr.set('142.130.2.83')
-      ws.Range("bg#{row}")['Value'] = g.email_srvr.value
     else
-      ws.Range("bg#{row}")['Value'] = g.email_srvr.value
-    end
-    
-    #Read Port value
-    ws.Range("bh#{row}")['Value'] = g.email_port.value
-    
-    g.save.click_no_wait
-    #g.jsClick('OK')
+      ws.Range("be#{row}")['Value'] = "1"
+      ws.Range("bf#{row}")['Value'] = g.email_custsubj.value      # Custom Subject
+    end  
+    ws.Range("bg#{row}")['Value'] = g.email_srvr.value          # Server
+    ws.Range("bh#{row}")['Value'] = g.email_port.value          # Port
+
     wb.Save
-    
-    rescue
-    fail +=1
-    puts "Error - #{fail} of #{row}"
-    Watir.autoit.Send('{F5}')
-    puts"********** rescue ***"
-    sleep 2
-    
-    begin
-      sleep 5 # wait for the previous click_no_wait process to time out before starting another 
-      save.click_no_wait
-      jsClick( $ie, "OK")
-    rescue
-      puts "**********no 'save' popup in rescue***"
-    end
-    
-    g.config.click
-    puts"Clicked on Configure Tab"
-    
-    begin
-      g.email.click_no_wait
-      g.jsClick('OK')
-      puts"**********email popup ***"
-    rescue
-      puts"**********return-1 to normal loop***"
-    end
-    puts"**********return-2 to normal loop***"
-    row = row - 1
-    next
-    end
   end
 
   f = Time.now  #finish time
