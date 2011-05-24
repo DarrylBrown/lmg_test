@@ -67,35 +67,34 @@ begin
 
     # Write Configure Firmware TFTP fields
     g.tftp_srvr.set(ws.Range("k#{row}")['Value'])
-    g.tftp_port.set(((ws.Range("l#{row}")['Value']).to_i).to_s)
-    g.tftp_file.set(ws.Range("m#{row}")['Value'])
+    g.tftp_file.set(ws.Range("l#{row}")['Value'])
     
     # if a popup is expected, handle with Reset-OK or Reset-Cancel
     # if no popup is expected, save
-    pop = ws.Range("af#{row}")['Value']
-    unless pop == "no"
-      ws.Range("bk#{row}")['Value'] = g.res_can(pop)
+    pop = ws.Range("ae#{row}")['Value']
+    if pop == "res"
+      ws.Range("bj#{row}")['Value'] = g.invChar($ie,pop,nil)
+    elsif pop == "can"
+      ws.Range("bj#{row}")['Value'] = g.res_can(pop)
+      g.save.click
     else
       g.save.click
-      #g.jsClick('OK')
     end
- 
+
     #read Configure Web field values
     sleep 1
     Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
     
-    ws.Range("bc#{row}")['Value'] = g.tftp_srvr.value
-    ws.Range("bd#{row}")['Value'] = g.tftp_port.value
-    ws.Range("be#{row}")['Value'] = g.tftp_file.value
+    ws.Range("bb#{row}")['Value'] = g.tftp_srvr.value
+    ws.Range("bc#{row}")['Value'] = g.tftp_file.value
     
     g.save.click
-    #g.jsClick('OK')
     wb.Save
   end
 
   f = Time.now  #finish time
-#Capture error if any in the script  
+  #Capture error if any in the script
 rescue Exception => e
   f = Time.now  #finish time 
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
