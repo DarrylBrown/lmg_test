@@ -132,34 +132,7 @@ module  Setup
     puts "This OS is #{@@os}"
   end
 
-  #    - thread based method to login to web page
-  #    - acknowledge security alert
-  #    - uses standard .click as opposed to .click_no_wait
-  def login(site,user,pswd)
-    
-    conn_to = @@titl + site
-    Thread.new{
-      thread_cnt = Thread.list.size
-      sleep 1 #This sleep is critical, timing may need to be adjusted
-      Watir.autoit.WinWait(conn_to)
-      Watir.autoit.WinActivate(conn_to)
-      Watir.autoit.Send(user)
-      Watir.autoit.Send('{TAB}')
-      Watir.autoit.Send(pswd)
-      popup('Windows Internet Explorer',@@ok) #launch thread for alert popup
-      Watir.autoit.Send('{ENTER}')
-    }
-  end
-
-  def popup(name,btn) #alert popup thread
-    Thread.new{
-      sleep 1 # This sleep is critical, timing may need to be adjusted
-      Watir.autoit.WinWait(name)
-      Watir.autoit.ControlClick(name,"",btn)
-    }
-  end
-
-   
+  
   #    - collects support page table:
  
   def support(xl)
