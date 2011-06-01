@@ -66,8 +66,8 @@ begin
     g.edit.click
 
     # write telnet checkbox value
-    if ws.Range("k#{row}")['Value'] == 'set' then g.telnet1.set else g.telnet1.clear end
-   
+    g.telnet1.send ws.Range("k#{row}")['Value']
+    
     # if a popup is expected, handle with Reset-OK or Reset-Cancel
     # if no popup is expected, save
     pop = ws.Range("af#{row}")['Value']

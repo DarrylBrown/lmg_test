@@ -65,11 +65,7 @@ def traps_fill(g,input1)
     g.trap_addr(i).set input[0].to_s
     g.trap_port(i).set input[1].to_s.delete(".0")
 	  g.trap_com(i).set input[2].to_s
-    if input[3] == 'set'
-      g.trap_hb(i).set
-	  else
-      g.trap_hb(i).clear
-	  end
+    g.trap_hb(i).send input[3]
   end
 end	
 	

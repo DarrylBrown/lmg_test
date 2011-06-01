@@ -66,21 +66,17 @@ begin
     g.edit.click
 
     # write Authentication and LGP checkbox value
-    if ws.Range("k#{row}")['Value'] == 'set' then g.snmp_auth.set else g.snmp_auth.clear end
-	
-    if ws.Range("l#{row}")['Value'] == 'set'
-      g.upsmib.set
-      if ws.Range("m#{row}")['Value'] == 'set'then g.upstraps.set else g.upstraps.clear end
-    else
-      g.upsmib.clear
+    g.snmp_auth.send ws.Range("k#{row}")['Value']
+
+    g.upsmib.send ws.Range("l#{row}")['Value']
+    if g.checkbox(g.upsmib) == 'set'
+      g.upstraps.send ws.Range("m#{row}")['Value']
     end
 	
-    if ws.Range("n#{row}")['Value'] == 'set'
-      g.lgpmib.set
-      if ws.Range("o#{row}")['Value'] == 'set' then g.lgptraps.set else g.lgptraps.clear end
-      if ws.Range("p#{row}")['Value'] == 'set' then g.sysnotify.set else g.sysnotify.clear end
-    else
-      g.lgpmib.clear
+    g.lgpmib.send ws.Range("n#{row}")['Value']
+    if g.checkbox(g.lgpmib) =='set'
+      g.lgptraps.send ws.Range("o#{row}")['Value']
+      g.sysnotify.send ws.Range("p#{row}")['Value']
     end
 	   
     HeartBeat = ((ws.Range("q#{row}")['Value']).to_i).to_s

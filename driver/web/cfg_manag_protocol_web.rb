@@ -65,7 +65,7 @@ begin
     g.edit.click
   
     # Write SNMP Agent checkbox
-    if ws.Range("k#{row}")['Value'] == 'set' then g.snmp_v1v2.set else g.snmp_v1v2.clear end
+    g.snmp_v1v2.send ws.Range("k#{row}")['Value']
     
     # if a popup is expected, handle with Reset-OK or Reset-Cancel
     # if no popup is expected, save

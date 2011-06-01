@@ -78,8 +78,8 @@ begin
     end
     
     unless web_server == "1"
-      if ws.Range("n#{row}")['Value'] == 'set' then g.pswdprtct.set else g.pswdprtct.clear end
-      if ws.Range("o#{row}")['Value'] == 'set' then g.cfgctrl.set else g.cfgctrl.clear end
+      g.pswdprtct.send ws.Range("n#{row}")['Value']
+      g.cfgctrl.send ws.Range("o#{row}")['Value']
       g.refresh.set((ws.Range("p#{row}")['Value']).to_s)
     else
       puts "The Web Server is Disabled"

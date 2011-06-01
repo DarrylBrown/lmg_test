@@ -73,37 +73,33 @@ begin
     puts "The flag is #{flag}"
     case flag
       when 'email'
-        if ws.Range("k#{row}")['Value'] == 'set' then g.email_addr.set else g.email_addr.clear end
-        if ws.Range("l#{row}")['Value'] == 'set' then g.email_evtdesc.set else g.email_evtdesc.clear end
-        if ws.Range("m#{row}")['Value'] == 'set' then g.email_name.set else g.email_name.clear end
-        if ws.Range("n#{row}")['Value'] == 'set' then g.email_cont.set else g.email_cont.clear end
-        if ws.Range("o#{row}")['Value'] == 'set' then g.email_loc.set else g.email_loc.clear end
-        if ws.Range("p#{row}")['Value'] == 'set' then g.email_desc.set else g.email_desc.clear end
-        if ws.Range("q#{row}")['Value'] == 'set' then g.email_weblnk.set else g.email_weblnk.clear end
-    
-        if ws.Range("r#{row}")['Value'] == 'set' 
-          g.email_consol.set
-          g.email_consoltime.set(ws.Range("s#{row}")['Value'].to_s)  
-          g.email_consolevt.set(ws.Range("t#{row}")['Value'].to_s)        
-        else
-          g.email_consol.clear 
+        g.email_addr.send ws.Range("k#{row}")['Value']
+        g.email_evtdesc.send ws.Range("l#{row}")['Value']
+        g.email_name.send ws.Range("m#{row}")['Value']
+        g.email_cont.send ws.Range("n#{row}")['Value']
+        g.email_loc.send ws.Range("o#{row}")['Value']
+        g.email_desc.send ws.Range("p#{row}")['Value']
+        g.email_weblnk.send ws.Range("q#{row}")['Value']
+
+        g.email_consol.send ws.Range("r#{row}")['Value']
+        if g.checkbox(g.email_consol)=='set'
+          g.email_consoltime.set(ws.Range("s#{row}")['Value'].to_s)
+          g.email_consolevt.set(ws.Range("t#{row}")['Value'].to_s)
         end
     
       when 'sms'
-        if ws.Range("k#{row}")['Value'] == 'set' then g.sms_addr.set else g.sms_addr.clear end
-        if ws.Range("l#{row}")['Value'] == 'set' then g.sms_evtdesc.set else g.sms_evtdesc.clear end
-        if ws.Range("m#{row}")['Value'] == 'set' then g.sms_name.set else g.sms_name.clear end
-        if ws.Range("n#{row}")['Value'] == 'set' then g.sms_cont.set else g.sms_cont.clear end
-        if ws.Range("o#{row}")['Value'] == 'set' then g.sms_loc.set else g.sms_loc.clear end
-        if ws.Range("p#{row}")['Value'] == 'set' then g.sms_desc.set else g.sms_desc.clear end
-        if ws.Range("q#{row}")['Value'] == 'set' then g.sms_weblnk.set else g.sms_weblnk.clear end
-    
-        if ws.Range("r#{row}")['Value'] == 'set' 
-          g.sms_consol.set
-          g.sms_consoltime.set(ws.Range("s#{row}")['Value'].to_s)  
-          g.sms_consolevt.set(ws.Range("t#{row}")['Value'].to_s)        
-        else
-          g.sms_consol.clear 
+        g.sms_addr.send ws.Range("k#{row}")['Value']
+        g.sms_evtdesc.send ws.Range("l#{row}")['Value']
+        g.sms_name.send ws.Range("m#{row}")['Value']
+        g.sms_cont.send ws.Range("n#{row}")['Value']
+        g.sms_loc.send ws.Range("o#{row}")['Value']
+        g.sms_desc.send ws.Range("p#{row}")['Value']
+        g.sms_weblnk.send ws.Range("q#{row}")['Value']
+
+        g.sms_consol.send ws.Range("r#{row}")['Value']
+        if g.checkbox(g.sms_consol) == 'set'
+          g.sms_consoltime.set(ws.Range("s#{row}")['Value'].to_s)
+          g.sms_consolevt.set(ws.Range("t#{row}")['Value'].to_s)
         end
     end
     
