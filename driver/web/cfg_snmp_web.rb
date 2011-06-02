@@ -99,21 +99,16 @@ begin
     g.edit.click
 	
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_auth)
-	
+
+    ws.Range("bd#{row}")['Value'] = g.checkbox(g.upsmib)
     if g.checkbox(g.upsmib) == 'set'
-      ws.Range("bd#{row}")['Value'] = 'set'
       ws.Range("be#{row}")['Value'] = g.checkbox(g.upstraps)
-		else
-      ws.Range("bd#{row}")['Value'] = 'clear'
     end
-	
+
+    ws.Range("bf#{row}")['Value'] = g.checkbox(g.lgpmib)
     if g.checkbox(g.lgpmib) == 'set'
-      ws.Range("bf#{row}")['Value'] = 'set'
       ws.Range("bg#{row}")['Value'] = g.checkbox(g.lgptraps)
       ws.Range("bh#{row}")['Value'] = g.checkbox(g.sysnotify)
-		
-		else
-      ws.Range("bf#{row}")['Value'] = 'clear'
     end
 	
     ws.Range("bi#{row}")['Value'] = g.snmp_hb.value

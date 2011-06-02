@@ -133,37 +133,33 @@ begin
     
     case flag
       when 'email'
-        if g.checkbox(g.email_addr) == 'set' then ws.Range("bc#{row}")['Value'] = 'set' else ws.Range("bc#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_evtdesc) == 'set' then ws.Range("bd#{row}")['Value'] = 'set' else ws.Range("bd#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_name) == 'set' then ws.Range("be#{row}")['Value'] = 'set' else ws.Range("be#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_cont) == 'set' then ws.Range("bf#{row}")['Value'] = 'set' else ws.Range("bf#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_loc) == 'set' then ws.Range("bg#{row}")['Value'] = 'set' else ws.Range("bg#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_desc) == 'set' then ws.Range("bh#{row}")['Value'] = 'set' else ws.Range("bh#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.email_weblnk) == 'set' then ws.Range("bi#{row}")['Value'] = 'set' else ws.Range("bi#{row}")['Value'] = 'clear' end
-    
+        ws.Range("bc#{row}")['Value'] = g.checkbox(g.email_addr)
+        ws.Range("bd#{row}")['Value'] = g.checkbox(g.email_evtdesc)
+        ws.Range("be#{row}")['Value'] = g.checkbox(g.email_name)
+        ws.Range("bf#{row}")['Value'] = g.checkbox(g.email_cont)
+        ws.Range("bg#{row}")['Value'] = g.checkbox(g.email_loc)
+        ws.Range("bh#{row}")['Value'] = g.checkbox(g.email_desc)
+        ws.Range("bi#{row}")['Value'] = g.checkbox(g.email_weblnk)
+
+        ws.Range("bj#{row}")['Value'] = g.checkbox(g.email_consol)
         if g.checkbox(g.email_consol) == 'set'
-          ws.Range("bj#{row}")['Value'] = 'set'
           ws.Range("bl#{row}")['Value'] = g.email_consoltime.value
           ws.Range("bm#{row}")['Value'] = g.email_consolevt.value 
-        else
-          ws.Range("bj#{row}")['Value'] = 'clear'
         end
     
       when 'sms'
-        if g.checkbox(g.sms_addr) == 'set' then ws.Range("bc#{row}")['Value'] = 'set' else ws.Range("bc#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_evtdesc) == 'set' then ws.Range("bd#{row}")['Value'] = 'set' else ws.Range("bd#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_name) == 'set' then ws.Range("be#{row}")['Value'] = 'set' else ws.Range("be#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_cont) == 'set' then ws.Range("bf#{row}")['Value'] = 'set' else ws.Range("bf#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_loc) == 'set' then ws.Range("bg#{row}")['Value'] = 'set' else ws.Range("bg#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_desc) == 'set' then ws.Range("bh#{row}")['Value'] = 'set' else ws.Range("bh#{row}")['Value'] = 'clear' end
-        if g.checkbox(g.sms_weblnk) == 'set' then ws.Range("bi#{row}")['Value'] = 'set' else ws.Range("bi#{row}")['Value'] = 'clear' end
-    
+        ws.Range("bc#{row}")['Value'] = g.checkbox(g.sms_addr)
+        ws.Range("bd#{row}")['Value'] = g.checkbox(g.sms_evtdesc)
+        ws.Range("be#{row}")['Value'] = g.checkbox(g.sms_name)
+        ws.Range("bf#{row}")['Value'] = g.checkbox(g.sms_cont)
+        ws.Range("bg#{row}")['Value'] = g.checkbox(g.sms_loc)
+        ws.Range("bh#{row}")['Value'] = g.checkbox(g.sms_desc)
+        ws.Range("bi#{row}")['Value'] = g.checkbox(g.sms_weblnk)
+
+        ws.Range("bj#{row}")['Value'] = g.checkbox(g.sms_consol)
         if g.checkbox(g.sms_consol) == 'set'
-          ws.Range("bj#{row}")['Value'] = 'set'
           ws.Range("bl#{row}")['Value'] = g.sms_consoltime.value
           ws.Range("bm#{row}")['Value'] = g.sms_consolevt.value 
-        else
-          ws.Range("bj#{row}")['Value'] = 'clear'
         end
     
     end
