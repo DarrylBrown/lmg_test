@@ -100,14 +100,14 @@ begin
     #If popup, handle with reset OK or reset Cancel to continue
     case pop
     when /ok/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.jsClick('OK')
     when /cancel/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.jsClick('OK')
       g.reset.click_no_wait
-      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("OK")
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.jsClick('OK')
     when /override/i then
-      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.popup_handler("OK")
-      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.popup_handler("OK")
+      ws.Range("#{ACTUAL_POPUP_1}#{row}")['Value'] = g.jsClick('OK')
+      ws.Range("#{ACTUAL_POPUP_2}#{row}")['Value'] = g.jsClick('OK')
     when /no/i then
       g.jsClick('OK')
     else raise "Invalid popup encountered!"
