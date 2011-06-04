@@ -85,7 +85,7 @@ begin
    #Click on Reset to Factory Defaults button  	
    if (pop == "fact")
     g.save.click_no_wait
-    popup_txt  =  g.jsClick('OK',user_inp = nil,"rtxt")
+    popup_txt  =  g.jsClick('OK')
 	puts "Pop-Up text is #{popup_txt}"
     ws.Range("bk#{row}")['Value'] = popup_txt
 	puts "#{bt_mode}"
@@ -96,7 +96,7 @@ begin
      end
    else
     g.save.click_no_wait
-    popup_txt  =  g.jsClick('Cancel',user_inp = nil,"rtxt")
+    popup_txt  =  g.jsClick('Cancel')
 	puts "Pop-Up text is #{popup_txt}"
     ws.Range("bk#{row}")['Value'] = popup_txt	
    end
