@@ -60,9 +60,7 @@ module  Popup
     hwnd1 = $ie.enabled_popup(wait) # wait up to 60 seconds for a popup to appear
     if (hwnd1)
       w = WinClicker.new
-      if (rtxt)
-        popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
-      end
+      popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
       if (user_inp)
         w.setTextValueForFileNameField(hwnd1, "#{user_inp}")
       end
