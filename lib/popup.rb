@@ -56,8 +56,8 @@ module  Popup
     else
       button =@@cancel
     end
-    wait = 70
-    hwnd1 = $ie.enabled_popup(wait) # wait up to 60 seconds for a popup to appear
+    wait = 20
+    hwnd1 = $ie.enabled_popup(wait) # wait up to 20 seconds for a popup to appear
     if (hwnd1)
       w = WinClicker.new
       popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
