@@ -74,7 +74,7 @@ begin
     # if no popup is expected, save
     pop = ws.Range("af#{row}")['Value']
     if pop == "res"
-      ws.Range("bk#{row}")['Value'] = g.invChar($ie,pop,nil)
+      ws.Range("bk#{row}")['Value'] = g.invChar(pop)
     elsif pop == "can"
       ws.Range("bk#{row}")['Value'] = g.res_can(pop)
     else

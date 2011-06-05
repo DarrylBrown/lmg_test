@@ -73,7 +73,7 @@ begin
     # if no popup is expected, save
     pop = ws.Range("ae#{row}")['Value']
     if pop == "res"
-      ws.Range("bj#{row}")['Value'] = g.invChar($ie,pop,nil)
+      ws.Range("bj#{row}")['Value'] = g.invChar(pop)
     elsif pop == "can"
       ws.Range("bj#{row}")['Value'] = g.res_can(pop)
       g.save.click

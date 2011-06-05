@@ -50,7 +50,7 @@ module  Popup
   #
   #  - Handle popup and return pop up text if 'rtxt' is true
   #  - user_input is used for firmware update file dialogue box
-  def jsClick(button, user_inp = nil,rtxt = nil)
+  def jsClick(button)
     if button=="OK"||button=="È·¶¨"
       button=@@ok
     else
@@ -61,9 +61,6 @@ module  Popup
     if (hwnd1)
       w = WinClicker.new
       popup_text = w.getStaticText_hWnd(hwnd1).to_s.delete "\n"
-      if (user_inp)
-        w.setTextValueForFileNameField(hwnd1, "#{user_inp}")
-      end
       sleep (0.1)
       w.clickWindowsButton_hwnd(hwnd1, "#{button}")
       w = nil
@@ -75,16 +72,16 @@ module  Popup
   #
   #  - after attempting to save an invalid character - reset OK or
   #  - reset Cancel And reset OK, return text in popup
-  def invChar( a,pop_exp,user_inp = nil)
+  def invChar(pop_exp)
     save.click_no_wait
-    poptxt = jsClick(@@ok ,user_inp = nil,"rtxt")
+    poptxt = jsClick(@@ok)
     if (pop_exp == "can")
       reset.click_no_wait
-      jsClick(@@cancel ,user_inp = nil)
+      jsClick(@@cancel)
       edit.click
     end
     reset.click_no_wait
-    jsClick(@@ok ,user_inp = nil)
+    jsClick(@@ok)
     return poptxt
   end
 
@@ -96,10 +93,10 @@ module  Popup
   def res_can(pop_exp)
     if (pop_exp == "res")
       reset.click_no_wait
-      jsClick(@@ok,user_inp = nil,"rtxt")
+      jsClick(@@ok)
     elsif (pop_exp == "can")
       reset.click_no_wait
-      jsClick(@@cancel,user_inp = nil,"rtxt")
+      jsClick(@@cancel)
     end
   end
 
@@ -109,10 +106,10 @@ module  Popup
   def res_factory(pop_exp)
     if (pop_exp == "res")
       restart1.click_no_wait
-      jsClick(@@ok,user_inp = nil,"rtxt")
+      jsClick(@@ok)
     elsif (pop_exp == "can")
       restart1.click_no_wait
-      jsClick(@@cancel,user_inp = nil,"rtxt")
+      jsClick(@@cancel)
     end
   end
 

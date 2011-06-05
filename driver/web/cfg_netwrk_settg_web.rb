@@ -86,7 +86,7 @@ begin
 
     #If popup, handle with reset OK or reset Cancel to continue
     if (pop == "res")
-      popup_txt  = g.invChar($ie,pop,nil)
+      popup_txt  = g.invChar(pop)
       puts "Pop-Up text is #{popup_txt}"
       ws.Range("bk#{row}")['Value'] = popup_txt
     end

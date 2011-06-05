@@ -138,7 +138,7 @@ begin
     save_flag = ws.Range("o#{row}")['Value'].to_s
     pop = ws.Range("af#{row}")['Value'].to_s 
     unless pop == "no"
-      ws.Range("bk#{row}")['Value'] = g.invChar($ie,pop,nil)
+      ws.Range("bk#{row}")['Value'] = g.invChar(pop)
     else
       
       puts "Save Flag = #{save_flag}"

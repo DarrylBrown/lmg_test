@@ -74,7 +74,7 @@ begin
 
     #If popup, handle with reset OK or reset Cancel to continue
     if (pop == "res" or pop == "can")
-      ws.Range("bk#{row}")['Value'] = g.invChar($ie,pop,nil)
+      ws.Range("bk#{row}")['Value'] = g.invChar(pop)
     end
 
     #If reset Cancel, do not save

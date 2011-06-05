@@ -84,7 +84,7 @@ begin
     # popup expected?
     pop = ws.Range("af#{row}")['Value'].to_s
     if (pop == "res")                                           # Reset
-      ws.Range("bi#{row}")['Value'] = g.invChar($ie,pop,nil)    # popup text
+      ws.Range("bi#{row}")['Value'] = g.invChar(pop)    # popup text
     end
     if (pop == "can")                                           # Cancel
       ws.Range("bi#{row}")['Value'] = g.res_can(pop)
