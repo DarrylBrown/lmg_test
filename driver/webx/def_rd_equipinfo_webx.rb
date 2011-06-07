@@ -59,12 +59,7 @@ begin
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
 	
     #read Agent - Name, Contact, Location, and Description
-    edit_button = g.edit.exists?
-    if (edit_button == true)
-      g.edit.click
-    else 
-      puts "Edit button not found"
-    end  
+    g.edit.click
     ws.Range("bc#{row}")['Value'] = g.name.value   
     ws.Range("bd#{row}")['Value'] = g.cont.value 
     ws.Range("be#{row}")['Value'] = g.loc.value

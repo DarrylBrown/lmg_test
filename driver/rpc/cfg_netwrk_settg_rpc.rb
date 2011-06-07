@@ -61,7 +61,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 
     # Write Network Settings  fields
@@ -105,7 +104,6 @@ begin
  
     #read Network Settings  field values
     sleep 1
-    Watir::Waiter.wait_until(20) { g.edit.exists?}
     g.edit.click
     
     ws.Range("bc#{row}")['Value'] = g.net_speed.value

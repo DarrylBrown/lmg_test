@@ -63,7 +63,6 @@ begin
   #Verify that SNTP checkbox is checked
   puts g.time_enable.checked?
   if g.time_enable.checked?.to_s == 'false'
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
     g.time_enable.set
     puts "Had to enable sntp in the script..."
@@ -73,7 +72,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
 
     # Write SNTP Configuration fields
@@ -115,7 +113,6 @@ begin
 
     #read SNTP Configuration  field values
     sleep 1
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
     
     t_srvr = g.timesrvr.value

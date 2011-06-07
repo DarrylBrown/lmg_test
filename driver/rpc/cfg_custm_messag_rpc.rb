@@ -65,7 +65,6 @@ begin
     begin
     puts"Start of Normal loop"
     sleep 3
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 
     # Write customize email and sms checkboxes
@@ -132,7 +131,6 @@ begin
  
     #read Email and SMS Checkbox value
     sleep 1
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     
     case flag

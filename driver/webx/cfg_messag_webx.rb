@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the ï¿½Configureï¿½ tab
+  #Navigate to the ï¿?onfigureï¿?tab
   g.config.click 
   #Click the Messaging link in the on the left side of window
   #Login if not called from controller
@@ -61,12 +61,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
     sleep 1
-    tries = 0
-    until (g.edit.exists?) do
-      sleep 0.5
-      tries += 1
-    end
-    #Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 
     # write email and sms checkbox value
@@ -85,11 +79,6 @@ begin
 
     #read email and sms Checkbox value
     sleep 1 #without this sleep, step 5 will fail
-    until (g.edit.exists?) do
-      sleep 0.5
-      tries += 1
-    end
-    #Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.email_msg)
     puts " sms   = " + ws.Range("bd#{row}")['Value'] = g.checkbox(g.sms_msg)

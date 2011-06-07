@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the Configure Email link on the left side of window
@@ -64,7 +64,6 @@ begin
     
     #read Email all field values
     sleep 1
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     
     #Read Email from and Emai to values

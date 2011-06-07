@@ -61,7 +61,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
 
     # Write Configure Web fields
@@ -111,7 +110,6 @@ begin
  
     #read Configure Web field values
     sleep 1
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
     
     web_mode = ((g.websrvr.value).to_s.insert(0,'"').insert(9,'"'))

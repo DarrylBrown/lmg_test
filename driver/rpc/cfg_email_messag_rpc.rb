@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configureï¿½ tab
+  #Navigate to the 'Configureï¿?tab
   g.config.click
   sleep(2)
   $ie.maximize
@@ -66,7 +66,6 @@ begin
     begin
     puts"Start of Normal loop"
     sleep 3
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
    
     # Write email fields
@@ -109,7 +108,6 @@ begin
  
     #read Email all field values
     
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     
    #Read Email from and Emai to values

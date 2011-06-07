@@ -62,7 +62,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
 
     # Write Configure Firmware TFTP fields
@@ -83,7 +82,6 @@ begin
 
     #read Configure Web field values
     sleep 1
-    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
     
     ws.Range("bb#{row}")['Value'] = g.tftp_srvr.value

@@ -62,7 +62,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
     sleep 1
-    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
 
     # write Authentication and LGP checkbox value
@@ -95,7 +94,6 @@ begin
 
     #read email and sms Checkbox value
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
 	
     puts " email = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_auth)

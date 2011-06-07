@@ -72,7 +72,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
     sleep 2
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 		
 	# write traps table entries

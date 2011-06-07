@@ -61,7 +61,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 1
-    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
     
     # Write Users Admin textboxes
@@ -90,7 +89,6 @@ begin
  
     #read Admin Username,Password Reenter Password value
     sleep 1
-    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click
     
     ws.Range("bc#{row}")['Value'] = g.admin_name.value   

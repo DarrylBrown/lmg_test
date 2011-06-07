@@ -63,7 +63,6 @@ begin
 	
     #read DNS Settings  field values
     sleep 1
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     
     #ws.Range("bc#{row}")['Value'] = g.dns_mode("1")

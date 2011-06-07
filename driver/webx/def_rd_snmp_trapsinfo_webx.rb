@@ -65,7 +65,6 @@ begin
 	
     #read write traps table entries
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 	puts "Trap Address/Network Name ="+ws.Range("bc#{row}")['Value']=g.trap_addr(1).value
 	puts "Trap Port ="+ws.Range("bd#{row}")['Value']=g.trap_port(1).value

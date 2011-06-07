@@ -63,7 +63,6 @@ begin
     
     #read Configure Network Settings field values
     sleep 1
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 	
     ws.Range("bc#{row}")['Value'] = g.net_speed.value

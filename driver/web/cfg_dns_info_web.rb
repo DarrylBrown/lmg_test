@@ -61,7 +61,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
 
     # Write DNS Server Mode Seletion
@@ -105,7 +104,6 @@ begin
  
     #read DNS Settings  field values
     sleep 1
-    Watir::Wait.until(10) {g.edit.exists?}
     g.edit.click
     
     #ws.Range("bc#{row}")['Value'] = g.dns_mode("1")

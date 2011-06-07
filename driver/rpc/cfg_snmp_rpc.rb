@@ -62,7 +62,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1, execution starts at drvr_ss row 2
     sleep 1
-    Watir::Waiter.wait_until(50) { g.edit.exists?}
     g.edit.click
 
     # write Authentication and LGP checkbox value
@@ -93,7 +92,6 @@ begin
 
     #read Traps Checkbox value
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
 	
     puts "Authentication Trap = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_auth)

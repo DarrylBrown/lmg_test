@@ -117,7 +117,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Wait.until(5) {g.edit.exists?}
     g.edit.click   
 	
     input1 = traps_input(row,ws)
@@ -145,7 +144,6 @@ begin
     if save_flag == "S"
       #read SNMP Traps textboxes value
       sleep 3
-      Watir::Wait.until(5) {g.edit.exists?}
       g.edit.click
       strt_row = row - 19    
       end_row = row

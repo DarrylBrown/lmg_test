@@ -64,7 +64,6 @@ begin
     
 	#read email and sms Checkbox value
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
 	
     ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_auth)

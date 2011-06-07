@@ -57,12 +57,7 @@ begin
     puts " Executing -  Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     #write Agent - Name, Contact, Location, and Description
-    edit_button = g.edit.exists?
-    if (edit_button == true)
       g.edit.click
-    else 
-      puts "Edit button not found"
-    end
     g.name.set(ws.Range("k#{row}")['Value'])
     g.cont.set(ws.Range("l#{row}")['Value'])
     g.loc.set(ws.Range("m#{row}")['Value'])

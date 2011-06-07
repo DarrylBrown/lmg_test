@@ -116,7 +116,6 @@ begin
     puts "\n\nTest step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click
 
     input1 = access_input(row,ws)
@@ -144,7 +143,6 @@ begin
     if save_flag == "S"
       #read SNMP Access textboxes value
       sleep 3
-      Watir::Waiter.wait_until(5) { g.edit.exists?}
       g.edit.click
       strt_row = row - 19
       puts "Start row = #{strt_row}"

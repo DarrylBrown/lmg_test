@@ -50,7 +50,7 @@ begin
   rows = excel[1][1] 
 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the SNMP Access link on the left side of widow
@@ -64,7 +64,6 @@ begin
    
     #read SNMP Access textboxes value
     sleep 3
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     
     puts "#{g.access_addr(1).value}"

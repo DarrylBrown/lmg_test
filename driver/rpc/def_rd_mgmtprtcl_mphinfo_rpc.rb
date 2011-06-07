@@ -64,7 +64,6 @@ begin
     
     #read snmp agent and velocityv4.server value
     sleep 1 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     puts " Snmp Agent = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_en)
     puts " Velocity V4.Server  = " + ws.Range("bd#{row}")['Value'] = g.checkbox(g.v4_en)

@@ -61,7 +61,6 @@ begin
     puts " Executing -  Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 1
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
   
     # Write SNMP Agent checkbox
@@ -79,7 +78,6 @@ begin
 
     #read - SNMP Agent Checkbox
     sleep 3 #without this sleep, step 5 will fail
-    Watir::Waiter.wait_until(10) { g.edit.exists?}
     g.edit.click
     puts "  snmp agent  = " + ws.Range("bc#{row}")['Value'] = g.checkbox(g.snmp_en)
     g.save.click_no_wait

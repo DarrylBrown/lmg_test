@@ -96,7 +96,7 @@ begin
   wb,ws = excel[0][1,2]
   rows = excel[1][1] 
   $ie.speed = :zippy
-  #Navigate to the 'Configure’ tab
+  #Navigate to the 'Configure?tab
   g.config.click
   $ie.maximize  
   #Click the SNMP Traps link on the left side of widow
@@ -116,7 +116,6 @@ begin
     puts "Test step #{row}"
     row +=1 # add 1 to row as execution starts at drvr_ss row 2
     sleep 5
-    Watir::Waiter.wait_until(5) { g.edit.exists?}
     g.edit.click   
 	
 	input1 = traps_input(row,ws)
@@ -144,7 +143,6 @@ begin
 if save_flag == "S"
   #read SNMP Traps textboxes value
       sleep 3
-      Watir::Waiter.wait_until(5) { g.edit.exists?}
       g.edit.click
       strt_row = row - 19    
       end_row = row
