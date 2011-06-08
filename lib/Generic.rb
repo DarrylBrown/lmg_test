@@ -195,7 +195,17 @@ class Generic
     end
     return nil
   end
-
+  
+  #enable and disable email and sms on the messaging page
+  def msg_ctrl(type, state)
+    msging.click
+    edit.click
+    email_msg.send state if type == "email"
+    sms_msg.send state if type == "sms"
+    save.click_no_wait
+    jsClick("OK")
+    send(type).click #use send method to invoke another method by name
+  end
 
 end
 
