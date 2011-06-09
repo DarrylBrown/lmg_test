@@ -204,7 +204,8 @@ class Generic
     sms_msg.send state if type == "sms"
     save.click_no_wait
     jsClick("OK")
-    send(type).click #use send method to invoke another method by name
+    send(type).click #Retrun back to original page.
+    # Use send method to convert string, such as "email"/"sms", to existing method email/sms.
   end
 
 end
