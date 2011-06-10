@@ -56,7 +56,8 @@ begin
   #Click the Messaging link in the on the left side of window
   #Login if not called from controller
   g.logn_chk(g.snmp,excel[1])
-    
+
+  g.mgtprot_ctrl("set")
   row = 1
   while(row <= rows)
     puts "Test step #{row}"
@@ -125,6 +126,7 @@ rescue Exception => e
   error_present=$@.to_s
 
 ensure #this section is executed even if script goes in error
+  g.mgtprot_ctrl("clear")
   if(error_present == nil)
     # If roe > 0, script is called from controller
     # If roe = 0, script is being ran independently

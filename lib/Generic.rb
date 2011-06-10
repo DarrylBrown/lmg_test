@@ -208,6 +208,16 @@ class Generic
     # Use send method to convert string, such as "email"/"sms", to existing method email/sms.
   end
 
+  #enable and disable management protocol ,such as snmpv1v2, on the management protocol page
+  def mgtprot_ctrl(state)
+    mgtprot.click
+    edit.click
+    snmp_v1v2.send state
+    save.click_no_wait
+    jsClick("OK")
+    snmp.click #Retrun back to original page.
+  end
+
 end
 
 class Array
