@@ -102,6 +102,7 @@ begin
 
 
      #**** read sms fields ****
+     sleep 1 #sleep 1 is need to make sure no intermittent failing
     ws.Range("bc#{row}")['Value'] = g.sms_from.value            # From
     ws.Range("bd#{row}")['Value'] = g.sms_to.value              # To
     if g.sms_subjecttype(0).checked? == true                    # Subject Type
