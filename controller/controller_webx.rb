@@ -1,13 +1,7 @@
 =begin
-*Script_Name*
-  Controller
-    The controller is used to run suites of driver scripts.
-
-*Suite_Number*
-  pending
 
 *Description*
-  Validate Agent Table Information
+  The controller is used to run suites of driver scripts.
 
 *Variables*
     s = test start time
@@ -27,68 +21,45 @@
     rows = number of spreadsheet rows to iterate ; cell 'B2'
     r_ow = Sequential number of script located in the controller spreadsheet
     run_flag = determines if script in row will run based on check in column 'D'
-    
-*Methods*
-TODO move the method info to the appropriate lib files
-    ss_info - location: setup module
-      - create time stamped controller spreadsheet
-      - open IE or attache to existing IE session
-      - populate the spreadsheet with web support page info
 
-    conn_act_xls - location: xls module
-      - connect to the active instance of excel
-
-    tear_down_c - location: teardown module
-      - writes the finished and elapsed time to the controller spreadsheet
-      - save and close the controller spreadsheet
+TODO driver log files are currently disabled
 =end
 
-$:.unshift File.expand_path(File.dirname(__FILE__)).sub('controller','lib') #add lib to load path
-$:.unshift '.'
-
+$:.unshift File.dirname(__FILE__).sub('controller','lib') #add lib to load path
 require 'generic'
 s = Time.now
 
-RUN_COLUMN = 'E'
-SCRIPT_COLUMN = 'J'
-
 begin
-  #Check for existing instances of IE and kill them if present
-  if is_process_running?('iexplore.exe')
-    kill_processes(get_process_pids('iexplore.exe'))
-    puts "Found and terminated existing instances of IE"
-  end
   puts" \n Executing: #{(__FILE__)}\n\n" #current file
   g = Generic.new
   
-  excel = g.setup(File.expand_path(__FILE__))
-  ws = excel[0][2]
-  ctrl_ss,rows,site,name,pswd = excel[1]
+  setup = g.setup(__FILE__)
+  xl = setup[0]
+  ws = xl[2] # spreadsheet
+  ctrl_ss,rows,site,name,pswd = setup[1]
 
-  g.config.click    # login now so drivers won't have to
+  # login now so drivers won't have to
+  g.config.click    
   g.login(site,name,pswd)
+  g.equipinfo.click
  
-  row = 2
+  row  = 1
   while (row <= rows)
-    run_flag = ws.Range("#{RUN_COLUMN}#{row}")['Value']
-    if run_flag == true
-      print" Executing Driver script #{row-1} -- "
-      path = File.expand_path(File.dirname(__FILE__)).sub('controller','driver') # driver path
-      drvr = path << (ws.Range("#{SCRIPT_COLUMN}#{row}")['Value'].to_s) #concat path and driver
-      drvr << '.rb' if !(drvr =~ /\.rb$/) #Add .rb to script name if necessary.
-      t = Time.now.to_a.reverse[5..9].to_s
-      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
-      run_drvr = system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver 
-      puts "Driver Status = #{run_drvr}"
-      #g.conn_act_xls # connect to controller spreadsheet
-    end
     row += 1
+    # run driver if the 'run' box is checked
+    if ws.Range("e#{row}")['Value'] == true
+      print" Run driver script #{row - 1} -- "
+      path = File.expand_path('driver')
+      drvr = path << (ws.Range("j#{row}")['Value'].to_s) # driver path
+      t = Time.now.strftime("%m%d%H%M%S")
+      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
+      system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver
+      g.conn_act_xls # reconnect to controller spreadsheet
+    end
   end
   f = Time.now  
-  g.tear_down_c(excel[0],s,f)
+  g.tear_down_c(xl,s,f)
   
 rescue Exception => e
   puts" \n\n **********\n\n #{$@ } \n\n #{e} \n\n ***"
-ensure 
 end
-
