@@ -52,14 +52,12 @@ module  Teardown
     wb.close
 
     # write driver status and time to controller spreadsheet
-    if roe > 0  
-      ss = WIN32OLE.connect('excel.Application')
-      wb = ss.ActiveWorkbook #TODO Using the active workbook doesn't work here
-      ws = wb.Worksheets(1)
+    if roe > 0
+      ss,wb,ws = conn_act_xls
       ws.Range("l#{roe}")['Value'] = status
       ws.Range("n#{roe}")['Value'] = elapsed
       wb.save
-    end  
+    end
   end
 
   
