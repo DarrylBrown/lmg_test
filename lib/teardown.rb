@@ -1,9 +1,4 @@
 =begin rdoc
-*Revisions*
-  | Change                                               | Name        | Date  |
-
-*Module_Name*
-  Teardown
 
 *Description*
   Test script teardown methods
@@ -23,14 +18,27 @@
 module  Teardown
 
   #
+  # - format time to month-day hour:minute:second
+  def fmt_time(t)
+    t.strftime("%m-%d %H:%M:%S").to_s
+  end
+
+
+  #
+  # - convert seconds to hour:minute:seconds
+  def elapsed(s)
+    (Time.mktime(0)+(s)).strftime("%H:%M:%S")
+  end
+
+
+  #
   #  - teardown driver - this function will update driver spreadsheet.
   def tear_down_d(s_s,s,f,roe)
-    # The variable 's_s' is an array that holds the current spreadsheet instance 
-    ss,wb,ws = s_s
-    #Save Summary and elapsed time to current ss
-    ws.Range("b6")['Value'] = s.to_s
-    ws.Range("b7")['Value'] = f.to_s
-    run_time = elapsed(f,s)
+    ss,wb,ws = s_s # spreadsheet instance
+    # start, finish, and elapsed time to spreadsheet
+    puts "Start:  #{ws.Range("b6")['Value'] = fmt_time(s)}"
+    puts "Finish: #{ws.Range("b7")['Value'] = fmt_time(f)}"
+    run_time = elapsed(f-s) # pass elapsed time in seconds
     ws.Range("b8")['Value'] = run_time.to_s
     status = ws.Range("b9")['Value'].to_s # Pass / Fail from Driver.xls
     puts "Status      = #{status}"
@@ -51,43 +59,20 @@ module  Teardown
   #
   #  - teardown controller - this function will update controller spreadsheet.
   def tear_down_c(xl,s,f)
-    # The variable 's_s' is an array that holds the current spreadsheet instance 
-    ss,wb,ws = xl
-    #Save Summary and elapsed time to current ss
-    ws.Range("b6")['Value'] = s.to_s
-    ws.Range("b7")['Value'] = f.to_s
-    run_time = elapsed(f,s)
+    ss,wb,ws = xl # spreadsheet instance
+    # start, finish, and elapsed time to spreadsheet
+    puts "Start:  #{ws.Range("b6")['Value'] = fmt_time(s)}"
+    puts "Finish: #{ws.Range("b7")['Value'] = fmt_time(f)}"
+    run_time = elapsed(f-s) # pass elapsed time in seconds
     ws.Range("b8")['Value'] = run_time.to_s
     wb.save
-    wb.close #Close Driver spreadsheet
+    wb.close #Close Controller spreadsheet
     ss.quit
     $ie.close
   end
   
-  
-  #
-  #  - calculates difference between start and finish time
-  def elapsed(finish,start,*row)
-    time = (finish-start).to_i
-    hours = time/3600.to_i
-    minutes = (time/60 - hours * 60).to_i
-    seconds = (time - (hours * 3600 + minutes * 60)).to_i
-    if(row != 0 ) # If driver script - use min and sec
-      test_time  = minutes.to_s << 'min'<<seconds.to_s<<'sec'
-      puts "\n\nTest Start  = "<<start.strftime("%H:%M:%S")
-      puts "Test Finish = "<<finish.strftime("%H:%M:%S")
-      puts "Test Time   = #{minutes}min#{seconds}sec"
-    else # Default output (Controller script) use hrs, min, and sec
-      test_time  = hours.to_s << 'hr' <<minutes.to_s << 'min'<<seconds.to_s<<'sec'
-      puts "\n\nTest Start  = "<<start.strftime("%H:%M:%S")
-      puts "Test Finish = "<<finish.strftime("%H:%M:%S")
-      puts "Test Time   = #{hours}hr#{minutes}min#{seconds}sec"
-    end  
-    return test_time
-  end
-
-  
-  #
+   
+  #   TODO consider deleting this method because it is not currently used
   #  - can be called to kill excel.exe
   def kill()
     kill_result = %x{tskill excel}
