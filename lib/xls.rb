@@ -47,11 +47,12 @@ module Xls
 
   #
   #  - connect to an existing instance of excel and open the existing workbook
-  def conn_act_xls  #sheet number is currently hardcoded
+  def conn_act_xls(sht = 1)  #sheet number is currently hardcoded
     ss = WIN32OLE.connect('excel.Application')
     wb = ss.ActiveWorkbook
-    ws = wb.Worksheets(1)
+    ws = wb.Worksheets(sht)
     ss.visible = true # For debug
+    xls = [ss,wb,ws]
   end
   
 
