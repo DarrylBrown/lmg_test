@@ -30,6 +30,13 @@
 
 module  Setup
 
+  #
+  # - time stamp in 'month-day_hour-minute-second' format
+  def t_stamp
+   Time.now.strftime("%m-%d_%H-%M-%S")
+  end
+
+
   #    - create time stamped controller spreadsheet
   #    - open IE or attach to existing IE session
   #    - populate the spreadsheet with web support page info
@@ -55,7 +62,7 @@ module  Setup
   #    - create instance of excel (xl)
   #    - returns a nested array containing spreadsheet and script parameters
   def xls_timestamp(s_s,*type)
-    new_ss = (s_s.chomp(".xls")<<'_'<<Time.now.to_a.reverse[5..9].to_s<<(".xls"))
+    new_ss = (s_s.chomp(".xls")<<'_'<<t_stamp<<(".xls"))
     # common statement assigned with one variable
     if new_ss.include? "controller"
       new_ss1 = new_ss.sub('controller','result')

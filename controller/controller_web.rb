@@ -51,8 +51,7 @@ begin
       print" Run driver script #{row - 1} -- "
       path = File.expand_path('driver')
       drvr = path << (ws.Range("j#{row}")['Value'].to_s) # driver path
-      t = Time.now.strftime("%m%d%H%M%S")
-      log = (drvr.gsub('.rb',"-#{t}.log" )).sub('driver','result')
+      log = (drvr.gsub('.rb',"-#{g.t_stamp}.log" )).sub('driver','result')
       system "ruby #{drvr} #{ctrl_ss} #{row}"# > {log}" # run driver
       g.conn_act_xls # reconnect to controller spreadsheet
     end
